@@ -3,38 +3,35 @@ package dpmCompetition;
 public class Localizer {
 
 	import lejos.hardware.motor.EV3LargeRegulatedMotor;
-	import lejos.robotics.SampleProvider;
 	public enum LocalizationType { RISING_EDGE };
 
 	public static double ROTATION_SPEED = 60;
 	private Odometer odo;
-	private SampleProvider usSensor;
-	private float[] usData;
+	private Navigation navigation;
+	private UsPoller usPoller;
 	private LocalizationType locType;
-	private boolean seesWall = true;
+	private MotorsController motorsController;
+	private Driver driver = null;
+
+	private boolean seesWall = true; //in diff class?
 	private int noiseMargin = 10;
-	private double tileLength = 30.48;
+	private double tileLength = 30.48; //take out if in other class
 	private double USplace = 7; //distance from us sensor to center of chassi
 	private double xCoord, yCoord, dist;
-//	private Driver driver = null;
-//	private Navigation navigation = navigation;
-	private UsPoller usPoller = usPoller;
 
-	public Localizer(Odometer odo,  SampleProvider usSensor, float[] usData, LocalizationType locType, EV3LargeRegulatedMotor leftMotor, EV3LargeRegulatedMotor rightMotor) {
+	public Localizer(Odometer odo, UsPoller usPoller, LocalizationType locType, MotorsController motorsController) {
 		this.odo = odo;
-		this.usSensor = usSensor;
-		this.usData = usData;
+		this.usPoller = usPoller;
 		this.locType = locType;
-		this.leftMotor = leftMotor;
-		this.rightMotor = rightMotor;
-//		this.driver = new driver(odo);
+		this.motorsController = motorsController;
+		this.driver = new driver(odo);
 	}
 
 
 	public void doLocalization() {
 		double angleA, angleB; 
-		leftMotor.setSpeed((int) ROTATION_SPEED);
-		rightMotor.setSpeed((int) ROTATION_SPEED);
+//		leftMotor.setSpeed((int) ROTATION_SPEED); //set speed in motorsController class?
+//		rightMotor.setSpeed((int) ROTATION_SPEED);
 
 		if (locType == LocalizationType.FALLING_EDGE) {
 			// rotate the robot until it sees no wall
@@ -65,7 +62,7 @@ public class Localizer {
 			// angleA is clockwise from angleB, so assume the average of the
 			// angles to the right of angleB is 45 degrees past 'north'
 			angleB = 45+((angleB-angleA)/2);
-			odo.setPosition(new double [] {0.0, 0.0, angleB}, new boolean [] {true, true, true});
+			odo.setPosition(new double [] {0.0, 0.0, angleB}, new boolean [] {true, true, true}); //change to setX, setY, setTheta
 			navigation.turn(180-odo.getAng());
 			dist = usPoller.getFilteredData()+ USplace;	
 			xCoord = dist - tileLength;
