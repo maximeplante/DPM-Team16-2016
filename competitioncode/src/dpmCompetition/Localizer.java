@@ -1,8 +1,8 @@
 package dpmCompetition;
 
-public class Localizer {
+import lejos.hardware.motor.EV3LargeRegulatedMotor;
 
-	import lejos.hardware.motor.EV3LargeRegulatedMotor;
+public class Localizer {
 	public enum LocalizationType { RISING_EDGE };
 
 	public static double ROTATION_SPEED = 60;
