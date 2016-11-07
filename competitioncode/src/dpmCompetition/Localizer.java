@@ -24,7 +24,7 @@ public class Localizer {
 		this.usPoller = usPoller;
 		this.locType = locType;
 		this.motorsController = motorsController;
-		this.driver = new driver(odo);
+		this.driver = new Driver(odo);
 	}
 
 
