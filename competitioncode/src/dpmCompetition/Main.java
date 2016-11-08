@@ -15,7 +15,7 @@ public class Main {
 		
 		// Odometry
 		OdometerCorrection odometerCorrection = new OdometerCorrection();
-		Odometer odometer = new Odometer(motorsController, 25, false);
+		Odometer odometer = new Odometer(motorsController, 25, true);
 		
 		// Sensors
 		EV3UltrasonicSensor upperUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(upperUsSensorPort));
@@ -33,7 +33,6 @@ public class Main {
 		// Starting the threads
 		odometerCorrection.start();
 		upperUsPoller.start();
-		odometer.start();
 		display.start();
 		brain.start();
 		
