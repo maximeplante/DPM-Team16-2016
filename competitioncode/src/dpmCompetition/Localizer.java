@@ -11,9 +11,10 @@ public class Localizer {
 	private double USplace = 7; //distance from us sensor to center of chassi
 	private double xCoord, yCoord, dist;
 
-	public Localizer(Odometer odo, UsPoller usPoller) {
+	public Localizer(Odometer odo, UsPoller usPoller, Navigation navigation) {
 		this.odo = odo;
 		this.usPoller = usPoller;
+		this.navigation = navigation;
 	}
 
 	public void localize() {
