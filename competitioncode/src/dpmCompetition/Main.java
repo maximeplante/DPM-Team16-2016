@@ -31,7 +31,7 @@ public class Main {
 		Brain brain = new Brain();
 
 		// Starting the threads
-		odometerCorrection.start();
+		//odometerCorrection.start();
 		upperUsPoller.start();
 		display.start();
 		brain.start();
