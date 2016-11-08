@@ -1,5 +1,9 @@
 package dpmCompetition;
 
-public class Brain {
-
+public class Brain extends Thread {
+	
+	public void run() {
+		
+	}
+	
 }
