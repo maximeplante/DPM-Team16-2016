@@ -22,7 +22,7 @@ public class Main {
 		UsPoller upperUsPoller = new UsPoller(upperUs);
 		
 		// Localization
-		Localizer localizer = new Localizer(odometer, upperUsPoller, null, motorsController);
+		Localizer localizer = new Localizer(odometer, upperUsPoller);
 		
 		// Display
 		Display display = new Display(LocalEV3.get().getTextLCD());

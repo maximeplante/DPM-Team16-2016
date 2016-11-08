@@ -6,7 +6,6 @@ public class Localizer {
 	private Navigation navigation;
 	private UsPoller usPoller;
 
-	private boolean seesWall = true;
 //	private int noiseMargin = 10;
 	private double tileLength = 30.48; //take out if in other class
 	private double USplace = 7; //distance from us sensor to center of chassi
