@@ -96,7 +96,7 @@ public class Odometer implements TimerListener{
 		}
 
 		// return theta value
-		public double getAng() {
+		public double getTheta() {
 			synchronized (this) {
 				return theta;
 			}
