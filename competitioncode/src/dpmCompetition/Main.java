@@ -24,6 +24,9 @@ public class Main {
 		// Localization
 		Localizer localizer = new Localizer(odometer, upperUsPoller, null, motorsController);
 		
+		// Display
+		Display display = new Display(LocalEV3.get().getTextLCD());
+		
 		// Competition brain
 		Brain brain = new Brain();
 
@@ -31,6 +34,7 @@ public class Main {
 		odometerCorrection.start();
 		upperUsPoller.start();
 		odometer.start();
+		display.start();
 		brain.start();
 		
 		// Wait for the user to quit
