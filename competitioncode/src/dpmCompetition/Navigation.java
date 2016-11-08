@@ -40,6 +40,21 @@ public class Navigation {
 		
 	}
 	
+	// Turn the robot on itself for a certain amount of degrees
+	// Theta is in radians
+	public void turn(double theta) {
+		
+		double angle = Math.toDegrees(theta);
+		
+		leftMotor.setSpeed(TURN_SPEED);
+		rightMotor.setSpeed(TURN_SPEED);
+		
+		// Make the wheels turn the right amount of degrees to turn to the target theta
+		leftMotor.rotate((int)convertAngle(WHEEL_RADIUS, TRACK, angle), true);
+		rightMotor.rotate((int)-convertAngle(WHEEL_RADIUS, TRACK, angle), false);
+		
+	}
+	
 	// Makes the robot go forward by a certain distance (cm)
 	public void goForward(double distance) {
 		leftMotor.rotate((int)convertDistance(WHEEL_RADIUS, distance), true);
@@ -76,7 +91,7 @@ public class Navigation {
 	}
 	
 	// Stops the motors
-	public void stopMotors() {
+	public void stopMoving() {
 		leftMotor.stop(true);
 		rightMotor.stop(true);
 	}
