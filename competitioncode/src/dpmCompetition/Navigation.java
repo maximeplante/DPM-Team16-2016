@@ -10,7 +10,7 @@ public class Navigation {
 	private EV3LargeRegulatedMotor rightMotor;
 	
 	// Speed constants
-	private static final int FORWARD_SPEED = 100;
+	public static final int FORWARD_SPEED = 100;
 	private static final int TURN_SPEED = 100;
 	
 	private static double WHEEL_RADIUS = 1.4;
