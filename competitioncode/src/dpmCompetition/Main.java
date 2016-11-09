@@ -21,8 +21,11 @@ public class Main {
 		EV3UltrasonicSensor upperUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(upperUsSensorPort));
 		UsPoller upperUsPoller = new UsPoller(upperUs);
 		
+		// Navigation
+		Navigation navigation = new Navigation(odometer, motorsController);
+		
 		// Localization
-		Localizer localizer = new Localizer(odometer, upperUsPoller);
+		Localizer localizer = new Localizer(odometer, upperUsPoller, navigation);
 		
 		// Display
 		Display display = new Display(LocalEV3.get().getTextLCD());
