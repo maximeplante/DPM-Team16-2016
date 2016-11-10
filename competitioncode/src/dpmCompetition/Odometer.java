@@ -3,49 +3,31 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.utility.Timer;
 import lejos.utility.TimerListener;
 
-public class Odometer implements TimerListener{
-	private Timer timer;
+public class Odometer extends Thread {
 	private EV3LargeRegulatedMotor leftMotor, rightMotor;
 	private final int DEFAULT_TIMEOUT_PERIOD = 20;
 	private double leftRadius, rightRadius, width;
 	private double x, y, theta;
 	private double[] oldDH, dDH;
 	// motor controller
-	private MotorsController MotorsController;
+	private MotorsController motorsController;
 	
 	// constructor
-	public Odometer (MotorsController motorsController, int INTERVAL, boolean autostart) {
-		this.MotorsController=motorsController;
-		this.leftMotor = motorsController.getLeftWheelMotor();
-		this.rightMotor = motorsController.getRightWheelMotor();
+	public Odometer (MotorsController motorsController, int INTERVAL) {
+		this.motorsController = motorsController;
+		this.leftMotor = this.motorsController.getLeftWheelMotor();
+		this.rightMotor = this.motorsController.getRightWheelMotor();
 				
 		// default values, modify for your robot
-		this.rightRadius = 2.15;
-		this.leftRadius = 2.15;
-		this.width = 12.0;
+		this.rightRadius = 2.1;
+		this.leftRadius = 2.1;
+		this.width = 15.4;
 				
 		this.x = 0.0;
 		this.y = 0.0;
-		this.theta = 90.0;
+		this.theta = 0.0;
 		this.oldDH = new double[2];
 		this.dDH = new double[2];
-		
-		if (autostart) {
-			// if the timeout interval is given as <= 0, default to 20ms timeout 
-			this.timer = new Timer((INTERVAL <= 0) ? INTERVAL : DEFAULT_TIMEOUT_PERIOD, this);
-			this.timer.start();
-			} else
-				this.timer = null;
-		}
-	
-	// functions to start/stop the timerlistener
-	public void stop() {
-		if (this.timer != null)
-			this.timer.stop();
-	}
-	public void start() {
-		if (this.timer != null)
-			this.timer.start();
 	}
 	
 	/*
@@ -63,22 +45,36 @@ public class Odometer implements TimerListener{
 	/*
 	 * Recompute the odometer values using the displacement and heading changes
 	 */
-	public void timedOut() {
-		this.getDisplacementAndHeading(dDH);
-		dDH[0] -= oldDH[0];
-		dDH[1] -= oldDH[1];
+	public void run() {
+		
+		while (true) {
+			this.getDisplacementAndHeading(dDH);
+			dDH[0] -= oldDH[0];
+			dDH[1] -= oldDH[1];
 
-		// update the position in a critical region
-		synchronized (this) {
-			theta += dDH[1];
-			theta = fixDegAngle(theta);
+			// update the position in a critical region
+			synchronized (this) {
+				theta += dDH[1];
+				theta = fixDegAngle(theta);
 
-			x += dDH[0] * Math.cos(Math.toRadians(theta));
-			y += dDH[0] * Math.sin(Math.toRadians(theta));
+				x += dDH[0] * Math.cos(Math.toRadians(theta));
+				y += dDH[0] * Math.sin(Math.toRadians(theta));
+			}
+
+			oldDH[0] += dDH[0];
+			oldDH[1] += dDH[1];
+			
+			Display.print(getX(), 0);
+			Display.print(getY(), 1);
+			Display.print(getTheta(), 2);
+			
+			try {
+				Thread.sleep(DEFAULT_TIMEOUT_PERIOD);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-
-		oldDH[0] += dDH[0];
-		oldDH[1] += dDH[1];
 	}
 	
 	// return X value
