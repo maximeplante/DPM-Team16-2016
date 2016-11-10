@@ -8,7 +8,7 @@ public class Localizer {
 
 //	private int noiseMargin = 10;
 	private double tileLength = 30.48; //take out if in other class
-	private double USplace = 7; //distance from us sensor to center of chassi
+	private double USplace = 7.5; //distance from us sensor to center of chassi
 	private double xCoord, yCoord, dist;
 
 	public Localizer(Odometer odo, UsPoller usPoller, Navigation navigation) {
