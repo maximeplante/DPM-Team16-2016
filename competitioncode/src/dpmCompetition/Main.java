@@ -6,7 +6,7 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 
 public class Main {
 
-	static private final String upperUsSensorPort = "A";
+	static private final String upperUsSensorPort = "S1";
 
 	public static void main(String[] args) {
 		
@@ -14,8 +14,8 @@ public class Main {
 		MotorsController motorsController = new MotorsController();
 		
 		// Odometry
-		OdometerCorrection odometerCorrection = new OdometerCorrection();
-		Odometer odometer = new Odometer(motorsController, 25, true);
+		//OdometerCorrection odometerCorrection = new OdometerCorrection();
+		Odometer odometer = new Odometer(motorsController, 25);
 		
 		// Sensors
 		EV3UltrasonicSensor upperUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(upperUsSensorPort));
@@ -31,12 +31,13 @@ public class Main {
 		Display display = new Display(LocalEV3.get().getTextLCD());
 		
 		// Competition brain
-		Brain brain = new Brain();
+		Brain brain = new Brain(localizer);
 
 		// Starting the threads
 		//odometerCorrection.start();
 		upperUsPoller.start();
 		display.start();
+		odometer.start();
 		brain.start();
 		
 		// Wait for the user to quit
