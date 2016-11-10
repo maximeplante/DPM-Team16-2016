@@ -46,7 +46,7 @@ public class Navigation {
 	 *
 	 * The angle increases counterclockwise.
 	 *
-	 * @param theta the angle position (in radians)
+	 * @param theta the angle position (in degrees)
 	 */
 	public void turnTo(double theta) {
 
@@ -55,11 +55,11 @@ public class Navigation {
 
 		// Finds the minimal turning angle required to reach the target theta
 		// minimalAngleDifference returns radians, but convertAngle uses degrees. A conversion is needed.
-		double angle = Math.toDegrees(minimalAngleDifference(odometer.getTheta(), theta));
+		double angle = minimalAngleDifference(odometer.getTheta(), theta);
 
 		// Make the wheels turn the right amount of degrees to turn to the target theta
-		leftMotor.rotate((int)convertAngle(WHEEL_RADIUS, TRACK, angle), true);
-		rightMotor.rotate((int)-convertAngle(WHEEL_RADIUS, TRACK, angle), false);
+		leftMotor.rotate((int)-convertAngle(WHEEL_RADIUS, TRACK, angle), true);
+		rightMotor.rotate((int)convertAngle(WHEEL_RADIUS, TRACK, angle), false);
 
 	}
 
@@ -68,18 +68,16 @@ public class Navigation {
 	 *
 	 * The angle increases counterclockwise.
 	 *
-	 * @param theta the amount of degrees to turn (in radians)
+	 * @param theta the amount of degrees to turn (in degrees)
 	 */
 	public void turn(double theta) {
-
-		double angle = Math.toDegrees(theta);
 
 		leftMotor.setSpeed(TURN_SPEED);
 		rightMotor.setSpeed(TURN_SPEED);
 
 		// Make the wheels turn the right amount of degrees to turn to the target theta
-		leftMotor.rotate((int)convertAngle(WHEEL_RADIUS, TRACK, angle), true);
-		rightMotor.rotate((int)-convertAngle(WHEEL_RADIUS, TRACK, angle), false);
+		leftMotor.rotate((int)-convertAngle(WHEEL_RADIUS, TRACK, theta), true);
+		rightMotor.rotate((int)convertAngle(WHEEL_RADIUS, TRACK, theta), false);
 
 	}
 
@@ -150,16 +148,16 @@ public class Navigation {
 	 *
 	 * Used in {@link #turnTo(double)}.
 	 *
-	 * @param currentTheta the robot's current angle position (in radians)
-	 * @param targetTheta the target angle position (in radians)
-	 * @return the minimal angle the robot needs to turn to reach the target angle position (in radians)
+	 * @param currentTheta the robot's current angle position (in degrees)
+	 * @param targetTheta the target angle position (in degrees)
+	 * @return the minimal angle the robot needs to turn to reach the target angle position (in degrees)
 	 */
 	public static double minimalAngleDifference(double currentTheta, double targetTheta) {
 		double difference = targetTheta - currentTheta;
-		if (difference > Math.PI) {
-			difference = difference - 2 * Math.PI;
-		} else if (difference < -Math.PI) {
-			difference = difference + 2 * Math.PI;
+		if (difference > 180.0) {
+			difference = difference - 360.0;
+		} else if (difference < -180.0) {
+			difference = difference + 360.0;
 		}
 		return difference;
 	}
