@@ -22,9 +22,9 @@ public class Navigation {
 	private static final int TURN_SPEED = 100;
 
 	/** The radius of the robot's wheels (cm) */
-	private static double WHEEL_RADIUS = 1.4;
+	private static double WHEEL_RADIUS = 2.1;
 	/** The distance between the robot's wheels (cm) */
-	private static double TRACK = 12.5;
+	private static double TRACK = 15.4;
 
 	/**
 	 * Constructor
