@@ -32,14 +32,11 @@ public class Display extends Thread {
 		}
 	}
 	
-	public void print(String msg, int line) throws Exception {
-		if (line >= lines.length) {
-			throw new Exception("Invalid line number");
-		}
-		msg = lines[line];
+	static public void print(String msg, int line){
+		lines[line % lines.length] = msg;
 	}
 	
-	public void print(double msg, int line) throws Exception {
+	static public void print(double msg, int line) {
 		print(String.valueOf(msg), line);
 	}
 	
