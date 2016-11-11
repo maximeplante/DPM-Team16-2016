@@ -32,7 +32,7 @@ public class UltrasonicSensorHeight extends Thread {
 		for (int i=0;i<450;i++){
 			int distance = (int) usPoller.getFilteredData();
 			// Print the result to the screen (and an output file)
-			System.out.print(String.format("%d: %d%n", System.currentTimeMillis(), distance));
+			System.out.println(String.format("%d: %d", System.currentTimeMillis(), distance));
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
