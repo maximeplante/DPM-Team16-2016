@@ -44,6 +44,8 @@ public class Main {
 		// Sensors
 		EV3UltrasonicSensor upperUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(UPPER_US_SENSOR_PORT));
 		UsPoller upperUsPoller = new UsPoller(upperUs);
+		EV3UltrasonicSensor lowerUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(LOWER_US_SENSOR_PORT));
+		UsPoller lowerUsPoller = new UsPoller(lowerUs);
 		
 		// Navigation
 		Navigation navigation = new Navigation(odometer, motorsController);
