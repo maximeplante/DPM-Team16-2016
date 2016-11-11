@@ -21,11 +21,6 @@ public class Navigation {
 	/** The speed at which the wheels should turn when the robot is turning on itself */
 	private static final int TURN_SPEED = 100;
 
-	/** The radius of the robot's wheels (cm) */
-	private static double WHEEL_RADIUS = 2.1;
-	/** The distance between the robot's wheels (cm) */
-	private static double TRACK = 15.4;
-
 	/**
 	 * Constructor
 	 *
@@ -58,8 +53,8 @@ public class Navigation {
 		double angle = minimalAngleDifference(odometer.getTheta(), theta);
 
 		// Make the wheels turn the right amount of degrees to turn to the target theta
-		leftMotor.rotate((int)-convertAngle(WHEEL_RADIUS, TRACK, angle), true);
-		rightMotor.rotate((int)convertAngle(WHEEL_RADIUS, TRACK, angle), false);
+		leftMotor.rotate((int)-convertAngle(Main.WHEEL_RADIUS, Main.TRACK, angle), true);
+		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, angle), false);
 
 	}
 
@@ -76,8 +71,8 @@ public class Navigation {
 		rightMotor.setSpeed(TURN_SPEED);
 
 		// Make the wheels turn the right amount of degrees to turn to the target theta
-		leftMotor.rotate((int)-convertAngle(WHEEL_RADIUS, TRACK, theta), true);
-		rightMotor.rotate((int)convertAngle(WHEEL_RADIUS, TRACK, theta), false);
+		leftMotor.rotate((int)-convertAngle(Main.WHEEL_RADIUS, Main.TRACK, theta), true);
+		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, theta), false);
 
 	}
 
@@ -87,8 +82,8 @@ public class Navigation {
 	 * @param distance the distance in centimeters
 	 */
 	public void goForward(double distance) {
-		leftMotor.rotate((int)convertDistance(WHEEL_RADIUS, distance), true);
-		rightMotor.rotate((int)convertDistance(WHEEL_RADIUS, distance), false);
+		leftMotor.rotate((int)convertDistance(Main.WHEEL_RADIUS, distance), true);
+		rightMotor.rotate((int)convertDistance(Main.WHEEL_RADIUS, distance), false);
 	}
 
 

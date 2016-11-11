@@ -7,8 +7,6 @@ public class Localizer {
 	private UsPoller usPoller;
 
 //	private int noiseMargin = 10;
-	private double tileLength = 30.48; //take out if in other class
-	private double USplace = 7.5; //distance from us sensor to center of chassi
 	private double xCoord, yCoord, dist;
 
 	public Localizer(Odometer odo, UsPoller usPoller, Navigation navigation) {
@@ -49,11 +47,11 @@ public class Localizer {
 		angleB = 45+((angleB-angleA)/2);
 		odo.setPosition(new double [] {0.0, 0.0, angleB}, new boolean [] {true, true, true});
 		navigation.turnTo(180);
-		dist = usPoller.getFilteredData()+ USplace;	
-		xCoord = dist - tileLength;
+		dist = usPoller.getFilteredData()+ Main.UPPER_US_OFFSET;	
+		xCoord = dist - Main.TILE_LENGTH;
 		navigation.turnTo(270);
-		dist = usPoller.getFilteredData()+ USplace;
-		yCoord = dist - tileLength;
+		dist = usPoller.getFilteredData()+ Main.UPPER_US_OFFSET;
+		yCoord = dist - Main.TILE_LENGTH;
 		odo.setPosition(new double [] {xCoord, yCoord, odo.getTheta()}, new boolean [] {true, true, true});
 		navigation.turnTo(0);
 	}

@@ -29,9 +29,6 @@ public class OdometerCorrection extends Thread {
 	/** The margin of the corners */
 	private int cornerRadius = 5;
 
-	/** The length of each unit square */
-	private double squareLength = 30.0;
-
 	/** The radius of the robot's wheels (cm) */
 	double radius = 1.4;// get the value from other class later (radius of the
 						// wheels)
@@ -99,7 +96,7 @@ public class OdometerCorrection extends Thread {
 					update[2] = true; // will correct theta
 					// the distance between the center of the wheel-base and the
 					// sensor needs to be added later
-					position[1] = Math.round(odometer.getY() / squareLength) * squareLength
+					position[1] = Math.round(odometer.getY() / Main.TILE_LENGTH) * Main.TILE_LENGTH
 							+ (Math.cos(Math.toRadians(theta)) * distanceTravel / 2.0); // new
 																						// y
 																						// value
@@ -116,7 +113,7 @@ public class OdometerCorrection extends Thread {
 					update[2] = true; // will correct theta
 					// the distance between the center of the wheel-base and the
 					// sensor needs to be added later
-					position[1] = Math.round(odometer.getY() / squareLength) * squareLength
+					position[1] = Math.round(odometer.getY() / Main.TILE_LENGTH) * Main.TILE_LENGTH
 							- (Math.cos(Math.toRadians(theta)) * distanceTravel / 2.0); // new
 																						// y
 																						// value
@@ -137,7 +134,7 @@ public class OdometerCorrection extends Thread {
 					update[2] = true; // will correct theta
 					// the distance between the center of the wheel-base and the
 					// sensor needs to be added later
-					position[0] = Math.round(odometer.getX() / squareLength) * squareLength
+					position[0] = Math.round(odometer.getX() / Main.TILE_LENGTH) * Main.TILE_LENGTH
 							+ (Math.cos(Math.toRadians(theta)) * distanceTravel / 2.0); // new
 																						// x
 																						// value
@@ -153,7 +150,7 @@ public class OdometerCorrection extends Thread {
 					update[2] = true; // will correct theta
 					// the distance between the center of the wheel-base and the
 					// sensor needs to be added later
-					position[0] = Math.round(odometer.getY() / squareLength) * squareLength
+					position[0] = Math.round(odometer.getY() / Main.TILE_LENGTH) * Main.TILE_LENGTH
 							- (Math.cos(Math.toRadians(theta)) * distanceTravel / 2.0); // new
 																						// x
 																						// value
@@ -175,10 +172,10 @@ public class OdometerCorrection extends Thread {
 	 *         corner
 	 */
 	private boolean isAtCorner() {
-		if (cornerRadius < (squareLength - (odometer.getX() % squareLength))
-				&& (squareLength - (odometer.getX() % squareLength)) < (squareLength - cornerRadius)
-				&& cornerRadius < (squareLength - (odometer.getY() % squareLength))
-				&& (squareLength - (odometer.getY() % squareLength)) < (squareLength - cornerRadius)) {
+		if (cornerRadius < (Main.TILE_LENGTH - (odometer.getX() % Main.TILE_LENGTH))
+				&& (Main.TILE_LENGTH - (odometer.getX() % Main.TILE_LENGTH)) < (Main.TILE_LENGTH - cornerRadius)
+				&& cornerRadius < (Main.TILE_LENGTH - (odometer.getY() % Main.TILE_LENGTH))
+				&& (Main.TILE_LENGTH - (odometer.getY() % Main.TILE_LENGTH)) < (Main.TILE_LENGTH - cornerRadius)) {
 			return false;
 		}
 		return true;
@@ -199,8 +196,8 @@ public class OdometerCorrection extends Thread {
 	 *         axis or a y axis base on its current position
 	 */
 	private boolean isCrossingX(double x, double y) {
-		double distanceToNearestY = Math.abs(x - squareLength * Math.round(x / squareLength));
-		double distanceToNearestX = Math.abs(y - squareLength * Math.round(y / squareLength));
+		double distanceToNearestY = Math.abs(x - Main.TILE_LENGTH * Math.round(x / Main.TILE_LENGTH));
+		double distanceToNearestX = Math.abs(y - Main.TILE_LENGTH * Math.round(y / Main.TILE_LENGTH));
 		if (distanceToNearestY >= distanceToNearestX) {
 			return true;
 		}

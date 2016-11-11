@@ -6,7 +6,6 @@ import lejos.utility.TimerListener;
 public class Odometer extends Thread {
 	private EV3LargeRegulatedMotor leftMotor, rightMotor;
 	private final int DEFAULT_TIMEOUT_PERIOD = 20;
-	private double leftRadius, rightRadius, width;
 	private double x, y, theta;
 	private double[] oldDH, dDH;
 	// motor controller
@@ -17,11 +16,6 @@ public class Odometer extends Thread {
 		this.motorsController = motorsController;
 		this.leftMotor = this.motorsController.getLeftWheelMotor();
 		this.rightMotor = this.motorsController.getRightWheelMotor();
-				
-		// default values, modify for your robot
-		this.rightRadius = 2.1;
-		this.leftRadius = 2.1;
-		this.width = 15.4;
 				
 		this.x = 0.0;
 		this.y = 0.0;
@@ -38,8 +32,8 @@ public class Odometer extends Thread {
 		leftTacho = leftMotor.getTachoCount();
 		rightTacho = rightMotor.getTachoCount();
 
-		data[0] = (leftTacho *leftRadius + rightTacho * rightRadius) * Math.PI / 360.0;
-		data[1] = (rightTacho * rightRadius - leftTacho * leftRadius) / width;
+		data[0] = (leftTacho * Main.WHEEL_RADIUS + rightTacho * Main.WHEEL_RADIUS) * Math.PI / 360.0;
+		data[1] = (rightTacho * Main.WHEEL_RADIUS - leftTacho * Main.WHEEL_RADIUS) / Main.TRACK;
 	}
 	
 	/*
@@ -151,13 +145,5 @@ public class Odometer extends Thread {
 				return d;
 			else
 				return d - 360.0;
-		}
-
-		public double getLeftRadius() {
-			return leftRadius;
-		}
-
-		public double getWidth() {
-			return width;
 		}
 }
