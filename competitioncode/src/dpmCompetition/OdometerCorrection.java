@@ -15,10 +15,10 @@ public class OdometerCorrection extends Thread {
 	private Odometer odometer;
 
 	/** Reference to the left lightsensor poller thread used by the robot */
-	private LeftLsPoller leftLsPoller;
+	private LsPoller leftLsPoller;
 
 	/** Reference to the right lightsensor poller thread used by the robot */
-	private RightLsPoller rightLsPoller;
+	private LsPoller rightLsPoller;
 
 	/** Reference to the navigation class used by the robot */
 	private Navigation navigation;
@@ -49,7 +49,7 @@ public class OdometerCorrection extends Thread {
 	 * @param navigation
 	 * @param motor
 	 */
-	public OdometerCorrection(Odometer odometer, LeftLsPoller leftLsPoller, RightLsPoller rightLsPoller,
+	public OdometerCorrection(Odometer odometer, LsPoller leftLsPoller, LsPoller rightLsPoller,
 			Navigation navigation, MotorsController motor) {
 		this.odometer = odometer;
 		this.leftLsPoller = leftLsPoller;
@@ -78,14 +78,14 @@ public class OdometerCorrection extends Thread {
 				direction = 1;
 			else
 				direction = -1;
-			lasttTachoRight = motor.getRightWheelMotor().getTachoCount();
+			lasttTachoRight = rightMotor.getTachoCount();
 			x1 = odometer.getX();
 			y1 = odometer.getY();
 			// the other sensor sees the line
 			while (!leftLsPoller.isSeeingBlackLine() || !rightLsPoller.isSeeingBlackLine()) {
 				sleep(50);
 			}
-			currentTachoRight = lasttTachoRight = motor.getRightWheelMotor().getTachoCount();
+			currentTachoRight = lasttTachoRight = rightMotor.getTachoCount();
 			x2 = odometer.getX();
 			y2 = odometer.getY();
 			// if the robot is crossing a horizontal line, only correct y value
