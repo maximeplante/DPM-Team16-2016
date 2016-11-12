@@ -53,7 +53,6 @@ public class Localizer {
 		dist = usPoller.getFilteredData()+ Main.UPPER_US_OFFSET;
 		yCoord = dist - Main.TILE_LENGTH;
 		odo.setPosition(new double [] {xCoord, yCoord, odo.getTheta()}, new boolean [] {true, true, true});
-		navigation.turnTo(0);
 	}
 	private boolean seesWall() {
 		if (usPoller.getFilteredData() < 25)
