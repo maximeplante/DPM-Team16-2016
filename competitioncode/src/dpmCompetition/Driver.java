@@ -51,21 +51,27 @@ public class Driver extends Thread{
 				return;
 			}
 			
+			// Calculate the angle the plant needs to face in order to get to the target
 			double angle = Math.toDegrees(Math.atan2(distX, distY));
-			// Prevent theta from being smaller that 0 and bigger than 360
-			if (angle> 180){
-				angle = angle-360;
-			}else if (angle < -180) {
-				angle = angle + 360;
-			}
-			if (angle - odometer.getTheta() > acceptableError) {
-				isGoingStraight = false;
+			
+			// Turn only if the minimal angle to turn is larger than 50 degrees (in any direction)
+			// Prevents the plant from doing a lot of small turns that could induce more error in the odometer.
+			if (Navigation.minimalAngleDifference(odometer.getTheta(), angle) > acceptableError || navigation.minimalAngleDifference(odometer.getTheta(), angle) < -acceptableError) {
 				navigation.turnTo(angle);
 			}
 			
+			// After turning, go forward in the new direction.
 			navigation.goForward();
 			isGoingStraight = true;
 		}
+	
+	public boolean isNavigating() {
+		return isNavigating;
+	}
+	
+	public boolean isGoingStraight() {
+		return isGoingStraight;
+	}
 	/**
 	 * Helper method that hides the complexity of Thread.sleep() and simplifies the code.
 	 * 
