@@ -2,17 +2,48 @@ package dpmCompetition;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.utility.Timer;
 import lejos.utility.TimerListener;
-
+/**
+ * 
+ * @author vivek
+ * Calculates the X, Y displacement and the angle the robot is facing from a set origin (heading). 
+ * Class extends Thread; it will be constantly running in a separate thread
+ *
+ */
 public class Odometer extends Thread {
+	/**
+	 * Reference to the robot's left and right wheel motors
+	 */
 	private EV3LargeRegulatedMotor leftMotor, rightMotor;
+<<<<<<< Updated upstream
 	private final int DEFAULT_TIMEOUT_PERIOD = 20;
+=======
+	/**
+	 * Time the thread sleeps for before starting again
+	 */
+	private final int TIMEOUT_PERIOD = 20;
+	/**
+	 * Radius for both wheels, and the width of robot (cm)
+	 */
+	private double leftRadius, rightRadius, width;
+	/**
+	 * calculated x, y displacement and angle of orientation (heading)
+	 */
+>>>>>>> Stashed changes
 	private double x, y, theta;
+	/**
+	 * x,y and theta are to updated according to the previous displacement of robot
+	 */
 	private double[] oldDH, dDH;
-	// motor controller
+	/**
+	 * provides access to motors (left and right wheel motors)
+	 */
 	private MotorsController motorsController;
+	/**
+	 * Constructor
+	 * @param motorsController provides access to left and right wheel motors
+	 */
 	
-	// constructor
-	public Odometer (MotorsController motorsController, int INTERVAL) {
+	public Odometer (MotorsController motorsController) {
 		this.motorsController = motorsController;
 		this.leftMotor = this.motorsController.getLeftWheelMotor();
 		this.rightMotor = this.motorsController.getRightWheelMotor();
@@ -24,7 +55,7 @@ public class Odometer extends Thread {
 		this.dDH = new double[2];
 	}
 	
-	/*
+	/**
 	 * Calculates displacement and heading as title suggests
 	 */
 	private void getDisplacementAndHeading(double[] data) {
@@ -36,7 +67,7 @@ public class Odometer extends Thread {
 		data[1] = (rightTacho * Main.WHEEL_RADIUS - leftTacho * Main.WHEEL_RADIUS) / Main.TRACK;
 	}
 	
-	/*
+	/**
 	 * Recompute the odometer values using the displacement and heading changes
 	 */
 	public void run() {
@@ -63,36 +94,44 @@ public class Odometer extends Thread {
 			Display.print(getTheta(), 2);
 			
 			try {
-				Thread.sleep(DEFAULT_TIMEOUT_PERIOD);
+				Thread.sleep(TIMEOUT_PERIOD);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	// return X value
+		/** 
+		 * @return current X displacement of robot
+		 */
 		public double getX() {
 			synchronized (this) {
 				return x;
 			}
 		}
 
-		// return Y value
+		/**
+		 * @return current Y displacement of robot
+		 */
 		public double getY() {
 			synchronized (this) {
 				return y;
 			}
 		}
 
-		// return theta value
+		/**
+		 * @return current Heading of robot
+		 */
 		public double getTheta() {
 			synchronized (this) {
 				return theta;
 			}
 		}
 
-		// set x,y,theta
+		/**
+		 * @param position array which contains current X and Y displacements
+		 * @param update 
+		 */
 		public void setPosition(double[] position, boolean[] update) {
 			synchronized (this) {
 				if (update[0])
@@ -104,7 +143,9 @@ public class Odometer extends Thread {
 			}
 		}
 
-		// return x,y,theta
+		/**
+		 * @param position array which stores current X, Y and Theta of robot
+		 */
 		public void getPosition(double[] position) {
 			synchronized (this) {
 				position[0] = x;
@@ -112,32 +153,32 @@ public class Odometer extends Thread {
 				position[2] = theta;
 			}
 		}
-
+		/** 
+		 * @return the array which contains current X,Y and Theta of robot 
+		 */
 		public double[] getPosition() {
 			synchronized (this) {
 				return new double[] { x, y, theta };
 			}
 		}
 		
-		// accessors to motors
-		public EV3LargeRegulatedMotor [] getMotors() {
-			return new EV3LargeRegulatedMotor[] {this.leftMotor, this.rightMotor};
-		}
-		public EV3LargeRegulatedMotor getLeftMotor() {
-			return this.leftMotor;
-		}
-		public EV3LargeRegulatedMotor getRightMotor() {
-			return this.rightMotor;
-		}
-
-		// static 'helper' methods
+		/**
+		 * 
+		 * @param angle
+		 * @return
+		 */
 		public static double fixDegAngle(double angle) {
 			if (angle < 0.0)
 				angle = 360.0 + (angle % 360.0);
 
 			return angle % 360.0;
 		}
-
+		/**
+		 * is this method ever used? doesn't seem like it... if it is not being used, how's it turning min angle?
+		 * @param a
+		 * @param b
+		 * @return
+		 */
 		public static double minimumAngleFromTo(double a, double b) {
 			double d = fixDegAngle(b - a);
 
@@ -146,4 +187,8 @@ public class Odometer extends Thread {
 			else
 				return d - 360.0;
 		}
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }
