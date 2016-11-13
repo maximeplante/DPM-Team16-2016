@@ -50,6 +50,10 @@ public class Main {
 		// Navigation
 		Navigation navigation = new Navigation(odometer, motorsController);
 		
+
+		//Driver
+		Driver driver = new Driver(odometer, navigation);
+		
 		// Localization
 		Localizer localizer = new Localizer(odometer, upperUsPoller, navigation);
 		
@@ -57,7 +61,7 @@ public class Main {
 		Display display = new Display(LocalEV3.get().getTextLCD());
 		
 		// Competition brain
-		Brain brain = new Brain(localizer);
+		Brain brain = new Brain(localizer, driver, navigation, odometer);
 
 		// Starting the threads
 		//odometerCorrection.start();
