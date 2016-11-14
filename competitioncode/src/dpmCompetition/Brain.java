@@ -1,5 +1,7 @@
 package dpmCompetition;
 
+import lejos.hardware.Sound;
+
 public class Brain extends Thread {
 	
 	private Localizer localizer;
@@ -18,6 +20,7 @@ public class Brain extends Thread {
 		int startXcoord;
 		int startYcoord;
 		int startAng;
+		Sound.setVolume(100);
 		
 		localizer.localize();
 		driver.start();
@@ -44,8 +47,6 @@ public class Brain extends Thread {
 //			startAng = 3;
 //		}
 		odo.setPosition(new double [] {startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH,startAng*90}, new boolean [] {true, true, true});
-		
+		Sound.beep();
 	}
-	
-	
 }
