@@ -11,7 +11,7 @@ public class Main {
 	/** The port used on the EV3 brick to connect the lower ultrasonic sensor */
 	static public final String LOWER_US_SENSOR_PORT = "S2";
 	/** The horizontal offset in cm of the upper ultrasonic sensor from the wheels' chassi */
-	static public final double UPPER_US_OFFSET = 7.5;
+	static public final double UPPER_US_OFFSET = 14.0;
 	/** The horizontal offset in cm of the lower ultrasonic sensor from the wheels' chassi */
 	static public final double LOWER_US_OFFSET = 7.5;
 	
@@ -21,7 +21,7 @@ public class Main {
 	/** The radius of the robot's wheels (cm) */
 	static public final double WHEEL_RADIUS = 2.1;
 	/** The distance between the robot's wheels (cm) */
-	static public final double TRACK = 15.4;
+	static public final double TRACK = 23.0;
 	
 	/** The port used on the EV3 brick to connect the left wheel motor */
 	static public final String LEFT_WHEEL_MOTOR_PORT = "A";
@@ -44,8 +44,8 @@ public class Main {
 		// Sensors
 		EV3UltrasonicSensor upperUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(UPPER_US_SENSOR_PORT));
 		UsPoller upperUsPoller = new UsPoller(upperUs);
-		EV3UltrasonicSensor lowerUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(LOWER_US_SENSOR_PORT));
-		UsPoller lowerUsPoller = new UsPoller(lowerUs);
+//		EV3UltrasonicSensor lowerUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(LOWER_US_SENSOR_PORT));
+//		UsPoller lowerUsPoller = new UsPoller(lowerUs);
 		
 		// Navigation
 		Navigation navigation = new Navigation(odometer, motorsController);
