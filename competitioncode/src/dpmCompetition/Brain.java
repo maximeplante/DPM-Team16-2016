@@ -20,6 +20,7 @@ public class Brain extends Thread {
 		int startAng;
 		
 		localizer.localize();
+		driver.start();
 		driver.travelTo(0,0);
 		navigation.turnTo(0);
 //		if (X1){
