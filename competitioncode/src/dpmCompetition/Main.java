@@ -39,7 +39,7 @@ public class Main {
 		
 		// Odometry
 		//OdometerCorrection odometerCorrection = new OdometerCorrection();
-		Odometer odometer = new Odometer(motorsController, 25);
+		Odometer odometer = new Odometer(motorsController);
 		
 		// Sensors
 		EV3UltrasonicSensor upperUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(UPPER_US_SENSOR_PORT));
