@@ -46,8 +46,7 @@ public class Driver extends Thread{
 				
 				if (distanceFromTarget < acceptableError) {
 					// Do nothing
-					leftMotor.stop();
-					rightMotor.stop();
+					navigation.stopMoving();
 					isNavigating = false;
 					return;
 				}
