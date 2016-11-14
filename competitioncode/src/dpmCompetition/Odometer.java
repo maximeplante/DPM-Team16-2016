@@ -16,11 +16,7 @@ public class Odometer extends Thread {
 	private EV3LargeRegulatedMotor leftMotor, rightMotor;
 
 	private final int DEFAULT_TIMEOUT_PERIOD = 20;
-<<<<<<< Updated upstream
-	
-=======
 
->>>>>>> Stashed changes
 	/**
 	 * Time the thread sleeps for before starting again
 	 */
@@ -32,10 +28,7 @@ public class Odometer extends Thread {
 	/**
 	 * calculated x, y displacement and angle of orientation (heading)
 	 */
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 	private double x, y, theta;
 	/**
 	 * x,y and theta are to updated according to the previous displacement of robot
