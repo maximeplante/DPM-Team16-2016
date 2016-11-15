@@ -3,6 +3,7 @@ package dpmCompetition;
 import java.io.IOException;
 import java.util.HashMap;
 
+import dpmCompetition.testing.NavigationTest;
 import dpmCompetition.wifi.WifiConnection;
 import lejos.hardware.Button;
 import lejos.hardware.ev3.LocalEV3;
@@ -58,7 +59,6 @@ public class Main {
 		
 		// Navigation
 		Navigation navigation = new Navigation(odometer, motorsController);
-		
 
 		//Driver
 		Driver driver = new Driver(odometer, navigation);
@@ -77,6 +77,11 @@ public class Main {
 		upperUsPoller.start();
 		display.start();
 		odometer.start();
+		
+		// Navigation test
+		//NavigationTest navigationTest = new NavigationTest(driver, localizer);
+		//navigationTest.start();
+		
 		brain.start();
 		
 		// Wait for the user to quit
