@@ -1,5 +1,9 @@
 package dpmCompetition;
 
+import java.io.IOException;
+import java.util.HashMap;
+
+import dpmCompetition.wifi.WifiConnection;
 import lejos.hardware.Button;
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
@@ -31,6 +35,11 @@ public class Main {
 	static public final String CLAW_MOTOR_PORT = "B";
 	/** The port used on the EV3 brick to connect the door motor */
 	static public final String DOOR_MOTOR_PORT = "C";
+	
+	/** The IP address of the competition server */
+	static public final String SERVER_IP = "192.168.2.40";
+	/** The team number of the robot (used by the wifi code) */
+	static public final int TEAM_NUMBER = 1;
 
 	public static void main(String[] args) {
 		
