@@ -20,6 +20,9 @@ public class Navigation {
 	public static final int FORWARD_SPEED = 100;
 	/** The speed at which the wheels should turn when the robot is turning on itself */
 	private static final int TURN_SPEED = 100;
+	
+	/** True only when the robot is moving straight (false if the robot is turning or not moving) */
+	public boolean isGoingStraight;
 
 	/**
 	 * Constructor
@@ -32,6 +35,8 @@ public class Navigation {
 		this.odometer = odometer;
 		this.leftMotor = motorsController.getLeftWheelMotor();
 		this.rightMotor = motorsController.getRightWheelMotor();
+		
+		isGoingStraight = false;
 
 	}
 
@@ -44,6 +49,8 @@ public class Navigation {
 	 * @param theta the angle position (in degrees)
 	 */
 	public void turnTo(double theta) {
+		
+		isGoingStraight = false;
 
 		leftMotor.setSpeed(TURN_SPEED);
 		rightMotor.setSpeed(TURN_SPEED);
@@ -66,6 +73,8 @@ public class Navigation {
 	 * @param theta the amount of degrees to turn (in degrees)
 	 */
 	public void turn(double theta) {
+		
+		isGoingStraight = false;
 
 		leftMotor.setSpeed(TURN_SPEED);
 		rightMotor.setSpeed(TURN_SPEED);
@@ -82,8 +91,14 @@ public class Navigation {
 	 * @param distance the distance in centimeters
 	 */
 	public void goForward(double distance) {
+		
+		isGoingStraight = true;
+		
 		leftMotor.rotate((int)convertDistance(Main.WHEEL_RADIUS, distance), true);
 		rightMotor.rotate((int)convertDistance(Main.WHEEL_RADIUS, distance), false);
+		
+		isGoingStraight = false;
+		
 	}
 
 
@@ -93,6 +108,8 @@ public class Navigation {
 	 * It will never stop until {@link #stopMoving()} is called
 	 */
 	public void goForward() {
+		
+		isGoingStraight = true;
 
 		leftMotor.setSpeed(FORWARD_SPEED);
 		rightMotor.setSpeed(FORWARD_SPEED);
@@ -108,6 +125,9 @@ public class Navigation {
 	 * It will never stop until {@link #stopMoving()} is called
 	 */
 	public void turnLeft() {
+		
+		isGoingStraight = false;
+		
 		leftMotor.setSpeed(TURN_SPEED);
 		rightMotor.setSpeed(TURN_SPEED);
 
@@ -121,6 +141,9 @@ public class Navigation {
 	 * It will never stop until {@link #stopMoving()} is called
 	 */
 	public void turnRight() {
+		
+		isGoingStraight = false;
+		
 		leftMotor.setSpeed(TURN_SPEED);
 		rightMotor.setSpeed(TURN_SPEED);
 
@@ -134,6 +157,9 @@ public class Navigation {
 	 * Stops the two wheel motors.
 	 */
 	public void stopMoving() {
+		
+		isGoingStraight = false;
+		
 		leftMotor.stop(true);
 		rightMotor.stop(true);
 	}

@@ -8,14 +8,10 @@ public class Driver {
 
 	private final int TIMEOUT_PERIOD = 20;
 	
-	private boolean isGoingStraight;
-	
 	Driver(Odometer odometer, Navigation navigation){
 		
 		this.odometer = odometer;
 		this.navigation = navigation;
-		
-		this.isGoingStraight = false;
 		
 	}
 	
@@ -45,7 +41,6 @@ public class Driver {
 			
 			// After turning, go forward in the new direction.
 			navigation.goForward();
-			isGoingStraight = true;
 			
 			try {
 				Thread.sleep(TIMEOUT_PERIOD);
@@ -57,9 +52,6 @@ public class Driver {
 			
 	}
 	
-	public boolean isGoingStraight() {
-		return isGoingStraight;
-	}
 	/**
 	 * Helper method that hides the complexity of Thread.sleep() and simplifies the code.
 	 * 
