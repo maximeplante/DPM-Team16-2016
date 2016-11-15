@@ -12,7 +12,7 @@ public class Driver extends Thread{
 	private EV3LargeRegulatedMotor leftMotor;
 	private EV3LargeRegulatedMotor rightMotor;
 	
-	private static final double acceptableError = 5;
+	private static final double acceptableError = 2;
 	private final int DEFAULT_TIMEOUT_PERIOD = 20;
 	
 	private boolean isNavigating;
@@ -52,7 +52,7 @@ public class Driver extends Thread{
 				}
 				
 				// Calculate the angle the plant needs to face in order to get to the target
-				double angle = Math.toDegrees(Math.atan2(distX, distY));
+				double angle = Math.toDegrees(Math.atan2(distY, distX));
 				
 				// Turn only if the minimal angle to turn is larger than 50 degrees (in any direction)
 				// Prevents the plant from doing a lot of small turns that could induce more error in the odometer.

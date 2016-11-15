@@ -7,9 +7,9 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 public class Main {
 
 	/** The port used on the EV3 brick to connect the upper ultrasonic sensor */
-	static public final String UPPER_US_SENSOR_PORT = "S1";
+	static public final String UPPER_US_SENSOR_PORT = "S2";
 	/** The port used on the EV3 brick to connect the lower ultrasonic sensor */
-	static public final String LOWER_US_SENSOR_PORT = "S2";
+	static public final String LOWER_US_SENSOR_PORT = "S3";
 	/** The horizontal offset in cm of the upper ultrasonic sensor from the wheels' chassi */
 	static public final double UPPER_US_OFFSET = 14.0;
 	/** The horizontal offset in cm of the lower ultrasonic sensor from the wheels' chassi */
@@ -43,7 +43,7 @@ public class Main {
 		
 		// Sensors
 		EV3UltrasonicSensor upperUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(UPPER_US_SENSOR_PORT));
-		UsPoller upperUsPoller = new UsPoller(upperUs);
+		UsPoller upperUsPoller = new UsPoller(upperUs.getDistanceMode());
 //		EV3UltrasonicSensor lowerUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(LOWER_US_SENSOR_PORT));
 //		UsPoller lowerUsPoller = new UsPoller(lowerUs);
 		

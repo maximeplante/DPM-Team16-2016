@@ -25,7 +25,16 @@ public class Brain extends Thread {
 		localizer.localize();
 		driver.start();
 		driver.travelTo(0,0);
-		navigation.turnTo(0);
+		/*while (driver.isNavigating()) {
+			try {
+				sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		driver.travelTo(30,30);*/
+		//navigation.turnTo(0);
 //		if (X1){
 			startXcoord = 0;
 			startYcoord = 0;
@@ -46,7 +55,7 @@ public class Brain extends Thread {
 //			startYcoord = 11;
 //			startAng = 3;
 //		}
-		odo.setPosition(new double [] {startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH,startAng*90}, new boolean [] {true, true, true});
+		//odo.setPosition(new double [] {startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH,startAng*90}, new boolean [] {true, true, true});
 		Sound.beep();
 	}
 }
