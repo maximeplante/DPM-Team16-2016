@@ -23,7 +23,6 @@ public class Brain extends Thread {
 		Sound.setVolume(100);
 		
 		localizer.localize();
-		driver.start();
 		driver.travelTo(0,0);
 		/*while (driver.isNavigating()) {
 			try {

@@ -16,8 +16,6 @@ public class NavigationTest extends Thread {
 	public void run() {
 		
 		localizer.localize();
-		driver.start();
-		
 		driver.travelTo(30, 20);
 		
 	}
