@@ -69,8 +69,11 @@ public class Main {
 		// Display
 		Display display = new Display(LocalEV3.get().getTextLCD());
 		
+		// BlockManipulator
+		BlockManipulator blockManipulator = new BlockManipulator(motorsController, navigation);
+				
 		// Competition brain
-		Brain brain = new Brain(localizer, driver, navigation, odometer);
+		Brain brain = new Brain(localizer, driver, navigation, odometer, blockManipulator);
 
 		// Starting the threads
 		//odometerCorrection.start();

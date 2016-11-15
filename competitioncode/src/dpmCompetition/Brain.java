@@ -8,12 +8,14 @@ public class Brain extends Thread {
 	private Driver driver;
 	private Navigation navigation;
 	private Odometer odo;
+	private BlockManipulator blockManipulator;
 	
-	Brain(Localizer localizer, Driver driver, Navigation navigation, Odometer odo) {
+	Brain(Localizer localizer, Driver driver, Navigation navigation, Odometer odo, BlockManipulator blockManipulator) {
 		this.localizer = localizer;
 		this.driver = driver;
 		this.navigation = navigation;
 		this.odo = odo;
+		this.blockManipulator = blockManipulator;
 	}
 	
 	public void run() {
