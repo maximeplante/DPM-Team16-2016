@@ -34,6 +34,8 @@ class Coordinate extends Stringer {
 	int x, y;
 }
 
+// TODO: This code is only for debugging and should be deleted
+// NOTICE: We are not the authors of this code. It comes from http://www.javapractices.com/topic/TopicAction.do;jsessionid=00034CD28E73C839D6070D2DD49E9639?Id=55
 class Stringer {
 	public String toString() {
 		  StringBuilder result = new StringBuilder();
