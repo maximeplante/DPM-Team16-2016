@@ -13,8 +13,8 @@ public class MotorsController {
 	MotorsController() {
 		leftWheelMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort(Main.LEFT_WHEEL_MOTOR_PORT));
 		rightWheelMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort(Main.RIGHT_WHEEL_MOTOR_PORT));
-		doorMotor = null; //new EV3LargeRegulatedMotor(LocalEV3.get().getPort(Main.DOOR_MOTOR_PORT));
-		clawMotor = null; //new EV3LargeRegulatedMotor(LocalEV3.get().getPort(Main.CLAW_MOTOR_PORT));
+		doorMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort(Main.DOOR_MOTOR_PORT));
+		clawMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort(Main.CLAW_MOTOR_PORT));
 	}
 	
 	public EV3LargeRegulatedMotor getLeftWheelMotor() {
