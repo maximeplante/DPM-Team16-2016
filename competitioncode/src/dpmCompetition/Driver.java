@@ -1,7 +1,5 @@
 package dpmCompetition;
 
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
-
 public class Driver extends Thread{
 	private double targetX;
 	private double targetY;
@@ -9,10 +7,8 @@ public class Driver extends Thread{
 	private Odometer odometer;
 	private Navigation navigation;
 	
-	private EV3LargeRegulatedMotor leftMotor;
-	private EV3LargeRegulatedMotor rightMotor;
-	
 	private static final double acceptableError = 2;
+
 	private final int DEFAULT_TIMEOUT_PERIOD = 20;
 	
 	private boolean isNavigating;
@@ -36,7 +32,7 @@ public class Driver extends Thread{
 		targetY = y;
 		isNavigating = true;
 			
-		}
+	}
 	
 	public void run() {
 			while (true) {
@@ -56,7 +52,7 @@ public class Driver extends Thread{
 				
 				// Turn only if the minimal angle to turn is larger than 50 degrees (in any direction)
 				// Prevents the plant from doing a lot of small turns that could induce more error in the odometer.
-				if (navigation.minimalAngleDifference(odometer.getTheta(), angle) > acceptableError || navigation.minimalAngleDifference(odometer.getTheta(), angle) < -acceptableError) {
+				if (Navigation.minimalAngleDifference(odometer.getTheta(), angle) > acceptableError || Navigation.minimalAngleDifference(odometer.getTheta(), angle) < -acceptableError) {
 					navigation.turnTo(angle);
 				}
 				
