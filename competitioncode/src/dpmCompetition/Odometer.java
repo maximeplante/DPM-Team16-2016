@@ -15,34 +15,30 @@ public class Odometer extends Thread {
 	 */
 	private EV3LargeRegulatedMotor leftMotor, rightMotor;
 
-	private final int DEFAULT_TIMEOUT_PERIOD = 20;
-
 	/**
 	 * Time the thread sleeps for before starting again
 	 */
 	private final int TIMEOUT_PERIOD = 20;
-	/**
-	 * Radius for both wheels, and the width of robot (cm)
-	 */
-	private double leftRadius, rightRadius, width;
+	
 	/**
 	 * calculated x, y displacement and angle of orientation (heading)
 	 */
-
 	private double x, y, theta;
+	
 	/**
 	 * x,y and theta are to updated according to the previous displacement of robot
 	 */
 	private double[] oldDH, dDH;
+	
 	/**
 	 * provides access to motors (left and right wheel motors)
 	 */
 	private MotorsController motorsController;
+	
 	/**
 	 * Constructor
 	 * @param motorsController provides access to left and right wheel motors
 	 */
-	
 	public Odometer (MotorsController motorsController) {
 		this.motorsController = motorsController;
 		this.leftMotor = this.motorsController.getLeftWheelMotor();
