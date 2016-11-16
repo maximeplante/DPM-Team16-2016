@@ -1,20 +1,39 @@
 package dpmCompetition;
 
+/**
+ * Provides robot the capability of localizing itself on the field
+ * 
+ *
+ */
 public class Localizer {
 
+	/** Reference to the odometer thread used by the robot */ 
 	private Odometer odo;
+	/** Reference to the navigation used by the robot */
 	private Navigation navigation;
+	/** Reference to the usPoller */
 	private UsPoller usPoller;
 
 //	private int noiseMargin = 10;
+	/** x,y and distance variable */
 	private double xCoord, yCoord, dist;
 
+	/**
+	 * Constructor 
+	 * 
+	 * @param odo Odometer
+	 * @param usPoller
+	 * @param navigation
+	 */
 	public Localizer(Odometer odo, UsPoller usPoller, Navigation navigation) {
 		this.odo = odo;
 		this.usPoller = usPoller;
 		this.navigation = navigation;
 	}
 
+	/**
+	 * Starts localization 
+	 */
 	public void localize() {
 		double angleA, angleB;
 		// rotate the robot until it sees no wall
@@ -54,6 +73,12 @@ public class Localizer {
 		yCoord = dist - Main.TILE_LENGTH;
 		odo.setPosition(new double [] {xCoord, yCoord, odo.getTheta()}, new boolean [] {true, true, true});
 	}
+	
+	/**
+	 * Used to see if the robot is facing a wall
+	 * 
+	 * @return true if the distance between the wall and the robot is less than 25cm
+	 */
 	private boolean seesWall() {
 		if (usPoller.getFilteredData() < 25)
 			return true;
