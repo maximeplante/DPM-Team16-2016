@@ -50,6 +50,20 @@ public class Navigation {
 	 */
 	public void turnTo(double theta) {
 		
+		turnTo(theta, false);
+
+	}
+	
+	/**
+	 * Turns the robot on itself to a specific angle position.
+	 *
+	 * The angle increases counterclockwise.
+	 *
+	 * @param theta the angle position (in degrees)
+	 * @param immediateReturn true if the method should return without waiting for the robot to finish turning
+	 */
+	public void turnTo(double theta, boolean immediateReturn) {
+		
 		isGoingStraight = false;
 
 		leftMotor.setSpeed(TURN_SPEED);
@@ -61,8 +75,8 @@ public class Navigation {
 
 		// Make the wheels turn the right amount of degrees to turn to the target theta
 		leftMotor.rotate((int)-convertAngle(Main.WHEEL_RADIUS, Main.TRACK, angle), true);
-		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, angle), false);
-
+		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, angle), immediateReturn);
+		
 	}
 
 	/**
@@ -74,6 +88,20 @@ public class Navigation {
 	 */
 	public void turn(double theta) {
 		
+		turn(theta, false);
+
+	}
+	
+	/**
+	 * Turns the robot on itself by a certain amount of degrees.
+	 *
+	 * The angle increases counterclockwise.
+	 *
+	 * @param theta the amount of degrees to turn (in degrees)
+	 * @param immediateReturn true if the method should return without waiting for the robot to finish turning
+	 */
+	public void turn(double theta, boolean immediateReturn) {
+		
 		isGoingStraight = false;
 
 		leftMotor.setSpeed(TURN_SPEED);
@@ -81,7 +109,7 @@ public class Navigation {
 
 		// Make the wheels turn the right amount of degrees to turn to the target theta
 		leftMotor.rotate((int)-convertAngle(Main.WHEEL_RADIUS, Main.TRACK, theta), true);
-		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, theta), false);
+		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, theta), immediateReturn);
 
 	}
 
