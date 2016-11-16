@@ -7,22 +7,31 @@ import lejos.robotics.SampleProvider;
 public class LsPoller extends Thread {
 	private static final long POLLING_PERIOD = 10;
 	
-	// The light sensor
+	/** Reference to the light sensor's sample provider */
 	private SampleProvider lsSampleProvider;
 	
-	// The buffet for the color sensor data
+	/** The buffer for the color sensor data */
 	public float[] lsData;
 	
-	// How many color sensor readings we should keep in lastCSReadings
+	/** The number of color sensor's readings we should keep in lastCSReadings */
 	private final int lastCSReadingsSize = 15;
 	
-	// The array containing the previous light sensor readings.
-	// Public for the OdometryDisplay
+	/** The array containing the previous light sensor readings.
+	    Public for the OdometryDisplay */
 	public ArrayList<Float> lastCSReadings;
 	
+	/** The boolean variable that represents robot's state of if it is seeing a black line */
 	private boolean seeBlackLine;
 
-	// constructor
+	/** The boolean variable that represents whether the robot sees a blue block */
+	private boolean seeBlueBlock;
+	
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param lsSampleProvider
+	 */
 	public LsPoller(SampleProvider lsSampleProvider) {
 		// Setting up the light sensor
 		this.lsSampleProvider = lsSampleProvider;
@@ -36,9 +45,14 @@ public class LsPoller extends Thread {
 		// Assume we don't see a black line initially
 		seeBlackLine = false;
 		
+		seeBlueBlock = false;
+		
 	}
 
-	// run method (required for Thread)
+	
+	/**
+	 * Starts polling to get the data from the light sensor. 
+	 */
 	public void run() {
 		long correctionStart, correctionEnd;
 		
@@ -79,8 +93,20 @@ public class LsPoller extends Thread {
 		}
 	}
 	
-	// Getter
+
+	/**
+	 * 
+	 * @return the state of whether the robot is on a black line
+	 */
 	public boolean isSeeingBlackLine() {
 		return seeBlackLine;
+	}
+	
+	/**
+	 * 
+	 * @return the state of whether the robot sees a blue block
+	 */
+	public boolean isSeeingBlueBlock() {
+		return seeBlueBlock;
 	}
 }
