@@ -5,22 +5,34 @@ import java.util.Collections;
 
 import lejos.robotics.SampleProvider;
 
+/**
+ * 
+ * Provides access to the readings from the US sensor and 
+ * gets the filtered reading.
+ *
+ */
 public class UsPoller extends Thread {
 	
-	// The ultrasonic sensor sample provider
+	/** Reference to the ultrasonic sensor sample provider */
 	private SampleProvider sampleProvider;
 	
-	// The array of the previous readings made by the ultrasonic sensor
+	/** The array of the previous readings made by the ultrasonic sensor */
 	private ArrayList<Float> usPreviousData;
-	// The number of previous readings to keep in the usPreviousData array
+	/** The number of previous readings to keep in the usPreviousData array */
 	private final int usPreviousDataSize = 6;
 	
-	// The array needed by the sample provider
+	/** The array needed by the sample provider */
 	private float[] usData;
 	
-	// The most recent median of the ultrasonic sensor readings (result of the median filter)
+	/** The most recent median of the ultrasonic sensor readings (result of the median filter) */
 	private float medianDistance;
 	
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param sampleProvider
+	 */
 	UsPoller(SampleProvider sampleProvider) {
 		this.sampleProvider = sampleProvider;
 		this.usData = new float[sampleProvider.sampleSize()];
@@ -35,6 +47,10 @@ public class UsPoller extends Thread {
 		medianDistance = median(usPreviousData);
 	}
 	
+	/**
+	 * Starts polling to get the data from the sensor. The reading will 
+	 * be stored in an array, then to be filtered by a median filter.
+	 */
 	public void run() {
 		
 		// Polling loop
@@ -64,13 +80,22 @@ public class UsPoller extends Thread {
 		}
 	}
 	
-	// Gives the most recent filtered reading.
+	/** 
+	 * 
+	 * @return the most recent filtered reading.
+	 */
 	public float getFilteredData() {
 		return medianDistance;
 	}
 	
-	// Median filter
-	// It is just calculating the median of the whole data array
+	
+	/**
+	 * Median filter
+	 * Calculates the median of the whole data array
+	 * 
+	 * @param data an array that stores the readings
+	 * @return the median of the sorted array
+	 */
 	private static float median(ArrayList<Float> data) {
 		// Create a copy of the array to prevent race condition when sorting (even though it is unlikely to happen)
 		ArrayList<Float> sortedData = new ArrayList<Float>(data);
