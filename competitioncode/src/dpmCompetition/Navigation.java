@@ -44,11 +44,25 @@ public class Navigation {
 	/**
 	 * Turns the robot on itself to a specific angle position.
 	 *
-	 * The angle increases counterclockwise.
+	 * The angle increases counterclockwise. Returns once the robot has finished turning.
 	 *
 	 * @param theta the angle position (in degrees)
 	 */
 	public void turnTo(double theta) {
+		
+		turnTo(theta, false);
+
+	}
+	
+	/**
+	 * Turns the robot on itself to a specific angle position.
+	 *
+	 * The angle increases counterclockwise.
+	 *
+	 * @param theta the angle position (in degrees)
+	 * @param immediateReturn true if the method should return without waiting for the robot to finish turning
+	 */
+	public void turnTo(double theta, boolean immediateReturn) {
 		
 		isGoingStraight = false;
 
@@ -61,18 +75,32 @@ public class Navigation {
 
 		// Make the wheels turn the right amount of degrees to turn to the target theta
 		leftMotor.rotate((int)-convertAngle(Main.WHEEL_RADIUS, Main.TRACK, angle), true);
-		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, angle), false);
-
+		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, angle), immediateReturn);
+		
 	}
 
+	/**
+	 * Turns the robot on itself by a certain amount of degrees.
+	 *
+	 * The angle increases counterclockwise. Returns once the robot has finished turning.
+	 *
+	 * @param theta the amount of degrees to turn (in degrees)
+	 */
+	public void turn(double theta) {
+		
+		turn(theta, false);
+
+	}
+	
 	/**
 	 * Turns the robot on itself by a certain amount of degrees.
 	 *
 	 * The angle increases counterclockwise.
 	 *
 	 * @param theta the amount of degrees to turn (in degrees)
+	 * @param immediateReturn true if the method should return without waiting for the robot to finish turning
 	 */
-	public void turn(double theta) {
+	public void turn(double theta, boolean immediateReturn) {
 		
 		isGoingStraight = false;
 
@@ -81,12 +109,14 @@ public class Navigation {
 
 		// Make the wheels turn the right amount of degrees to turn to the target theta
 		leftMotor.rotate((int)-convertAngle(Main.WHEEL_RADIUS, Main.TRACK, theta), true);
-		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, theta), false);
+		rightMotor.rotate((int)convertAngle(Main.WHEEL_RADIUS, Main.TRACK, theta), immediateReturn);
 
 	}
 
 	/**
-	 * Makes the robot go forward by a certain distance
+	 * Makes the robot go forward by a certain distance.
+	 * 
+	 * Returns once the robot has finished turning.
 	 *
 	 * @param distance the distance in centimeters
 	 */
@@ -105,7 +135,7 @@ public class Navigation {
 	/**
 	 * Makes the robot go forward.
 	 *
-	 * It will never stop until {@link #stopMoving()} is called
+	 * It will never stop until {@link #stopMoving()} is called.
 	 */
 	public void goForward() {
 		
@@ -122,7 +152,7 @@ public class Navigation {
 	/**
 	 * Makes the robot turn on itself to the left.
 	 *
-	 * It will never stop until {@link #stopMoving()} is called
+	 * It will never stop until {@link #stopMoving()} is called.
 	 */
 	public void turnLeft() {
 		
@@ -138,7 +168,7 @@ public class Navigation {
 	/**
 	 * Makes the robot turn on itself to the right.
 	 *
-	 * It will never stop until {@link #stopMoving()} is called
+	 * It will never stop until {@link #stopMoving()} is called.
 	 */
 	public void turnRight() {
 		
@@ -162,6 +192,15 @@ public class Navigation {
 		
 		leftMotor.stop(true);
 		rightMotor.stop(true);
+	}
+	
+	/**
+	 * Used to check if the robot is currently moving
+	 * 
+	 * @return true if the robot is moving.
+	 */
+	public boolean isMoving() {
+		return leftMotor.isMoving() || rightMotor.isMoving();
 	}
 
 	/**
