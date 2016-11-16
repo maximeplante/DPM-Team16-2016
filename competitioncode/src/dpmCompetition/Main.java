@@ -3,6 +3,7 @@ package dpmCompetition;
 import java.io.IOException;
 import java.util.HashMap;
 
+import dpmCompetition.testing.BlockCatchingTest;
 import dpmCompetition.testing.NavigationTest;
 import dpmCompetition.wifi.WifiConnection;
 import lejos.hardware.Button;
@@ -84,6 +85,10 @@ public class Main {
 		// Navigation test
 		//NavigationTest navigationTest = new NavigationTest(driver, localizer);
 		//navigationTest.start();
+		
+		// Block catching test
+		//BlockCatchingTest blockCatchingTest = new BlockCatchingTest(blockManipulator);
+		//blockCatchingTest.start();
 		
 		brain.start();
 		
