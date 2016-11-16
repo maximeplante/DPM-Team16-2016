@@ -3,15 +3,25 @@ package dpmCompetition;
 public class Driver {
 	private Odometer odometer;
 	private Navigation navigation;
+	private CompetitionData competitionData;
 	
 	private static final double acceptableError = 2;
 
 	private final int TIMEOUT_PERIOD = 20;
 	
-	Driver(Odometer odometer, Navigation navigation){
+	Driver(Odometer odometer, Navigation navigation, CompetitionData competitionData){
 		
 		this.odometer = odometer;
 		this.navigation = navigation;
+		this.competitionData = competitionData;
+		
+	}
+	
+	public void travelToBlueBlock() {
+		
+	}
+	
+	public void travelToGreenZone() {
 		
 	}
 	
