@@ -193,6 +193,15 @@ public class Navigation {
 		leftMotor.stop(true);
 		rightMotor.stop(true);
 	}
+	
+	/**
+	 * Used to check if the robot is currently moving
+	 * 
+	 * @return true if the robot is moving.
+	 */
+	public boolean isMoving() {
+		return leftMotor.isMoving() || rightMotor.isMoving();
+	}
 
 	/**
 	 * Calculates the minimal angle the robot needs to turn in order to get to the target theta.
