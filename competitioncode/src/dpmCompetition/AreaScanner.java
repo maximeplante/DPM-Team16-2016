@@ -6,7 +6,7 @@ public class AreaScanner {
 		
 	}
 	
-	public Coordinate[] findClosestObjects() {
+	public Coordinate[] findCloseObjects() {
 		
 		Coordinate[] coords = new Coordinate[1];
 		coords[0].x = 15;
