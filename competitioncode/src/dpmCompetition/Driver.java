@@ -4,16 +4,18 @@ public class Driver {
 	private Odometer odometer;
 	private Navigation navigation;
 	private CompetitionData competitionData;
+	private AreaScanner areaScanner;
 	
 	private static final double acceptableError = 2;
 
 	private final int TIMEOUT_PERIOD = 20;
 	
-	Driver(Odometer odometer, Navigation navigation, CompetitionData competitionData){
+	Driver(Odometer odometer, Navigation navigation, CompetitionData competitionData, AreaScanner areaScanner){
 		
 		this.odometer = odometer;
 		this.navigation = navigation;
 		this.competitionData = competitionData;
+		this.areaScanner = areaScanner;
 		
 	}
 	

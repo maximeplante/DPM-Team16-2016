@@ -60,8 +60,11 @@ public class Main {
 		
 		// Navigation
 		Navigation navigation = new Navigation(odometer, motorsController);
+		
+		// Area Scanner
+		AreaScanner areaScanner = new AreaScanner();
 
-		//Driver
+		// Driver
 		// Used for Driver debugging
 		CompetitionData competitionData = new CompetitionData();
 		/*
@@ -70,7 +73,7 @@ public class Main {
 		competitionData.greenZone.upperRight.x = 40;
 		competitionData.greenZone.upperRight.y = 40;
 		*/
-		Driver driver = new Driver(odometer, navigation, competitionData);
+		Driver driver = new Driver(odometer, navigation, competitionData, areaScanner);
 		
 		// Localization
 		Localizer localizer = new Localizer(odometer, upperUsPoller, navigation);
