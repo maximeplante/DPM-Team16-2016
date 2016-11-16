@@ -20,19 +20,19 @@ public class BlockManipulator {
 	private Navigation navigation;
 	
 	/** Distance needed for the robot to go backward in order to drop the claw */
-	private int backward = 15;
+	private static final int backward = 15;
 	
 	/** Degree needed to be rotated to drop the claw */
-	private int clawDegree = 350;
+	private static final int clawDegree = 350;
 	
 	/** Claw's and door's motor rotate speed */
-	private int turnSpeed = 20;
+	private static final int turnSpeed = 20;
 	
 	/** Degree needed to be rotated in order to open the door */
-	private int doorDegree = 90;
+	private static final int doorDegree = 90;
 	
 	/** Distance needed for the robot to go forward to release the tower */
-	private int forward = 30;
+	private static final int forward = 30;
 	
 	/**
 	 * 
@@ -49,7 +49,7 @@ public class BlockManipulator {
 	
 	/**
 	 * The robot goes backward, drops the claw, goes forward, catches the block 
-	 * and dumps it into the back bin.
+	 * and dumps the block into its back bin.
 	 */
 	public void catchBlock(){
 		navigation.goForward(-backward);
