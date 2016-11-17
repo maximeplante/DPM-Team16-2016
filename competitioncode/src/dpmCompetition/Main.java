@@ -12,14 +12,10 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 
 public class Main {
 
-	/** The port used on the EV3 brick to connect the upper ultrasonic sensor */
-	static public final String UPPER_US_SENSOR_PORT = "S2";
-	/** The port used on the EV3 brick to connect the lower ultrasonic sensor */
-	static public final String LOWER_US_SENSOR_PORT = "S3";
-	/** The horizontal offset in cm of the upper ultrasonic sensor from the wheels' chassi */
+	/** The port used on the EV3 brick to connect the ultrasonic sensor */
+	static public final String US_SENSOR_PORT = "S2";
+	/** The horizontal offset in cm of the ultrasonic sensor from the wheels' chassi */
 	static public final double UPPER_US_OFFSET = 14.0;
-	/** The horizontal offset in cm of the lower ultrasonic sensor from the wheels' chassi */
-	static public final double LOWER_US_OFFSET = 7.5;
 	
 	/** The length of a tile on the demo board (cm) */
 	static public final double TILE_LENGTH = 30.48;
@@ -53,10 +49,8 @@ public class Main {
 		Odometer odometer = new Odometer(motorsController);
 		
 		// Sensors
-		EV3UltrasonicSensor upperUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(UPPER_US_SENSOR_PORT));
-		UsPoller upperUsPoller = new UsPoller(upperUs.getDistanceMode());
-//		EV3UltrasonicSensor lowerUs = new EV3UltrasonicSensor(LocalEV3.get().getPort(LOWER_US_SENSOR_PORT));
-//		UsPoller lowerUsPoller = new UsPoller(lowerUs);
+		EV3UltrasonicSensor us = new EV3UltrasonicSensor(LocalEV3.get().getPort(US_SENSOR_PORT));
+		UsPoller usPoller = new UsPoller(us.getDistanceMode());
 		
 		// Navigation
 		Navigation navigation = new Navigation(odometer, motorsController);
@@ -76,7 +70,7 @@ public class Main {
 		Driver driver = new Driver(odometer, navigation, competitionData, areaScanner);
 		
 		// Localization
-		Localizer localizer = new Localizer(odometer, upperUsPoller, navigation);
+		Localizer localizer = new Localizer(odometer, usPoller, navigation);
 		
 		// Display
 		Display display = new Display(LocalEV3.get().getTextLCD());
@@ -89,7 +83,7 @@ public class Main {
 
 		// Starting the threads
 		//odometerCorrection.start();
-		upperUsPoller.start();
+		usPoller.start();
 		display.start();
 		odometer.start();
 		
