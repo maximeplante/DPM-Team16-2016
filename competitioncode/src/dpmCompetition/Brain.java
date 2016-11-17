@@ -2,14 +2,32 @@ package dpmCompetition;
 
 import lejos.hardware.Sound;
 
+/**
+ * 
+ * Controls robot's logic for the competition
+ *
+ */
 public class Brain extends Thread {
-	
+	/** Reference to the localizer used by the robot */
 	private Localizer localizer;
+	/** Reference to the driver used by the robot */ 
 	private Driver driver;
+	/** Reference to the navigation used by the robot */
 	private Navigation navigation;
+	/** Reference to the odometer used by the robot */
 	private Odometer odo;
+	/** Reference to the blockManipulator used by the robot */
 	private BlockManipulator blockManipulator;
 	
+	/**
+	 * Constructor 
+	 * 
+	 * @param localizer a reference to the localizer
+	 * @param driver a reference to the driver
+	 * @param navigation a reference to the navigation
+	 * @param odo a reference to the odometer
+	 * @param blockManipulator a reference to the blockManipulator
+	 */
 	Brain(Localizer localizer, Driver driver, Navigation navigation, Odometer odo, BlockManipulator blockManipulator) {
 		this.localizer = localizer;
 		this.driver = driver;
