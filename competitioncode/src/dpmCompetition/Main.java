@@ -44,6 +44,12 @@ public class Main {
 		
 		CompetitionData competitionData = CompetitionDataFetcher.fetch();
 		
+		if (competitionData == null) {
+			System.out.println("The demo can't start without wifi data. It crashed.");
+			while (Button.waitForAnyPress() != Button.ID_ESCAPE);
+			System.exit(0);
+		}
+		
 		// Motos provider
 		MotorsController motorsController = new MotorsController();
 		
