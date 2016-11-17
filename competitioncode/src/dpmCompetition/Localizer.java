@@ -1,5 +1,7 @@
 package dpmCompetition;
 
+import lejos.hardware.Sound;
+
 public class Localizer {
 
 	private Odometer odo;
@@ -53,6 +55,7 @@ public class Localizer {
 		dist = usPoller.getFilteredData()+ Main.UPPER_US_OFFSET;
 		yCoord = dist - Main.TILE_LENGTH;
 		odo.setPosition(new double [] {xCoord, yCoord, odo.getTheta()}, new boolean [] {true, true, true});
+		Sound.beep();
 	}
 	private boolean seesWall() {
 		if (usPoller.getFilteredData() < 25)
