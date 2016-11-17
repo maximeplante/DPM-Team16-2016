@@ -20,13 +20,13 @@ public class BlockManipulator {
 	private Navigation navigation;
 	
 	/** Distance needed for the robot to go backward in order to drop the claw */
-	private static final int backward = 15;
+	private static final int backward = 17;
 	
 	/** Degree needed to be rotated to drop the claw */
-	private static final int clawDegree = 350;
+	private static final int clawDegree = 380;
 	
 	/** Claw's and door's motor rotate speed */
-	private static final int turnSpeed = 20;
+	private static final int turnSpeed = 50;
 	
 	/** Degree needed to be rotated in order to open the door */
 	private static final int doorDegree = 90;
