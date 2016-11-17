@@ -23,7 +23,7 @@ public class Main {
 	/** The radius of the robot's wheels (cm) */
 	static public final double WHEEL_RADIUS = 2.1;
 	/** The distance between the robot's wheels (cm) */
-	static public final double TRACK = 23.0;
+	static public final double TRACK = 23.5;
 	
 	/** The port used on the EV3 brick to connect the left wheel motor */
 	static public final String LEFT_WHEEL_MOTOR_PORT = "A";
