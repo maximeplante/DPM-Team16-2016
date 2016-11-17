@@ -41,6 +41,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		CompetitionData competitionData = CompetitionDataFetcher.fetch();
+		
 		// Motos provider
 		MotorsController motorsController = new MotorsController();
 		
@@ -60,8 +62,8 @@ public class Main {
 
 		// Driver
 		// Used for Driver debugging
-		CompetitionData competitionData = new CompetitionData();
 		/*
+		CompetitionData competitionData = new CompetitionData();
 		competitionData.greenZone.lowerLeft.x = 20;
 		competitionData.greenZone.lowerLeft.y = 20;
 		competitionData.greenZone.upperRight.x = 40;
