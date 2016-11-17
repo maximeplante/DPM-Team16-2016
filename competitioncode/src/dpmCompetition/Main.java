@@ -3,6 +3,7 @@ package dpmCompetition;
 import java.io.IOException;
 import java.util.HashMap;
 
+import dpmCompetition.testing.AreaScannerTest;
 import dpmCompetition.testing.BlockCatchingTest;
 import dpmCompetition.testing.NavigationTest;
 import dpmCompetition.wifi.WifiConnection;
@@ -58,7 +59,7 @@ public class Main {
 		Navigation navigation = new Navigation(odometer, motorsController);
 		
 		// Area Scanner
-		AreaScanner areaScanner = new AreaScanner();
+		AreaScanner areaScanner = new AreaScanner(navigation, usPoller, odometer);
 
 		// Driver
 		// Used for Driver debugging
@@ -81,7 +82,7 @@ public class Main {
 		BlockManipulator blockManipulator = new BlockManipulator(motorsController, navigation);
 				
 		// Competition brain
-		Brain brain = new Brain(localizer, driver, navigation, odometer, blockManipulator);
+		Brain brain = new Brain(localizer, driver, navigation, odometer, blockManipulator, areaScanner);
 
 		// Starting the threads
 		//odometerCorrection.start();
@@ -96,6 +97,10 @@ public class Main {
 		// Block catching test
 		//BlockCatchingTest blockCatchingTest = new BlockCatchingTest(blockManipulator);
 		//blockCatchingTest.start();
+		
+		// Area Scanner Test
+		//AreaScannerTest areaScannerTest = new AreaScannerTest(areaScanner, driver, localizer);
+		//areaScannerTest.start();
 		
 		brain.start();
 		
