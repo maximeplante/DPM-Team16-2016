@@ -69,10 +69,12 @@ public class Brain extends Thread {
 		}*/
 		odo.setPosition(new double [] {startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH,startAng*90}, new boolean [] {true, true, true});
 
-		Coordinate[] objects = areaScanner.findCloseObjects();
-		driver.travelTo(objects[0].x, objects[0].y);
+		//Coordinate[] objects = areaScanner.findCloseObjects();
+		driver.travelToBlueBlock();
+		//driver.travelTo(objects[0].x, objects[0].y);
 
 		blockManipulator.catchBlock();
-
+		driver.travelToGreenZone();
+	
 	}
 }
