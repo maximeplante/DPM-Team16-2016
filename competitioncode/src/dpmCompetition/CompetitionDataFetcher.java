@@ -18,16 +18,19 @@ public abstract class CompetitionDataFetcher {
 			conn = new WifiConnection(Main.SERVER_IP, Main.TEAM_NUMBER, true);
 		} catch (IOException e) {
 			System.out.println("Connection failed");
+			return null;
 		}
 		
 		if (conn == null) {
 			System.out.println("Connection was cancelled");
+			return null;
 		}
 		
 		HashMap<String, Integer> data = conn.StartData;
 		
 		if (data == null) {
 			System.out.println("No data received");
+			return null;
 		}
 		
 		CompetitionData competitionData = new CompetitionData();
