@@ -11,7 +11,7 @@ public class Display extends Thread {
 	private TextLCD lcd;
 	
 	/** The lines do display during the next screen refresh */
-	static private String[] lines = {"", "", "", "", ""};
+	static private String[] lines = {"", "", "", "", "", "", "", ""};
 	
 	/**
 	 * Constructor
