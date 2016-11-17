@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import dpmCompetition.wifi.WifiConnection;
-
+/**
+ * Waits for the Wifi connection and receives the competition data
+ *
+ */
 public abstract class CompetitionDataFetcher {
 
 	public static CompetitionData fetch() {
