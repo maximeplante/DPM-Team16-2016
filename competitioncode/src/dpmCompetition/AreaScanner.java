@@ -27,7 +27,7 @@ public class AreaScanner {
 		
 		List<Integer> distances = new ArrayList<Integer>();
 		List<Integer> angles = new ArrayList<Integer>();
-		navigation.turn(90, true);
+		navigation.turn(360, true);
 		while(navigation.isMoving()) {
 			distances.add((int) usPoller.getFilteredData());
 			angles.add((int) odometer.getTheta());
@@ -70,7 +70,7 @@ public class AreaScanner {
 			
 			Coordinate point = pointPosition(angles.get(middleObjectIndex), distances.get(middleObjectIndex));
 			
-			if (point.x < -15 || point.x > 90 || point.y < -15 || point.y > 90) {
+			if (point.x < 0 || point.x > 90 || point.y < 0 || point.y > 90) {
 				continue;
 			}
 			
