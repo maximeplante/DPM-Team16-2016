@@ -1,5 +1,7 @@
 package dpmCompetition;
 
+import lejos.hardware.Sound;
+
 /**
  * Provides robot the capabilities of traveling to different destinations
  * 
@@ -45,6 +47,12 @@ public class Driver {
 	 */
 	public void travelToBlueBlock() {
 		Coordinate[] blueBlocks = areaScanner.findCloseObjects();
+		while (blueBlocks.length==0){
+			Sound.beep();
+			navigation.turn(Math.random()*(-90));
+			navigation.goForward(30);
+			blueBlocks = areaScanner.findCloseObjects();
+		}
 		int index = 0;
 		double odometerX = odometer.getX();
 		double odometerY = odometer.getY();
