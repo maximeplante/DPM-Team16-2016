@@ -75,10 +75,10 @@ public class Driver {
 	 * competition's data
 	 */
 	public void travelToGreenZone() {
-		double x = competitionData.greenZone.lowerLeft.x;
-		double y = competitionData.greenZone.lowerLeft.y;
+		double x = (competitionData.greenZone.lowerLeft.x + competitionData.greenZone.upperRight.x)/2;
+		double y = (competitionData.greenZone.lowerLeft.y + competitionData.greenZone.upperRight.y)/2;
 
-		travelTo(x + squareOffset, y + squareOffset);
+		travelTo(x, y);
 	}
 
 	/**
