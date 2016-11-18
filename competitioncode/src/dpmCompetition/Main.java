@@ -8,6 +8,7 @@ import dpmCompetition.testing.BlockCatchingTest;
 import dpmCompetition.testing.NavigationTest;
 import dpmCompetition.wifi.WifiConnection;
 import lejos.hardware.Button;
+import lejos.hardware.Sound;
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 
@@ -43,6 +44,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		CompetitionData competitionData = CompetitionDataFetcher.fetch();
+		Sound.beep();
 		
 		if (competitionData == null) {
 			System.out.println("The demo can't start without wifi data. It crashed.");
