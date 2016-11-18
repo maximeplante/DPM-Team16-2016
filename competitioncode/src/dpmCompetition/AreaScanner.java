@@ -70,9 +70,9 @@ public class AreaScanner {
 			
 			Coordinate point = pointPosition(angles.get(middleObjectIndex), distances.get(middleObjectIndex));
 			
-			/*if (point.x < -15 || point.x > 90 || point.y < -15 || point.y > 90) {
+			if (point.x < -15 || point.x > 90 || point.y < -15 || point.y > 90) {
 				continue;
-			}*/
+			}
 			
 			points.add(point);
 			
