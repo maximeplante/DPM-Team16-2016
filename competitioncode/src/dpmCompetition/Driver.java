@@ -84,6 +84,8 @@ public class Driver {
 				index = i;
 			}
 		}
+		Display.print(blueBlocks[index].x, 4);
+		Display.print(blueBlocks[index].y, 5);
 		travelTo(blueBlocks[index].x, blueBlocks[index].y);
 	}
 
