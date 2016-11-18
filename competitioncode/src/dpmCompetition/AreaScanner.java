@@ -70,11 +70,9 @@ public class AreaScanner {
 			
 			Coordinate point = pointPosition(angles.get(middleObjectIndex), distances.get(middleObjectIndex));
 			
-			if (point.x < 0 || point.x > 90 || point.y < 0 || point.y > 90) {
-				continue;
+			if (!(point.x < 0 || point.x > 210 || point.y < 0 || point.y > 210)) {
+				points.add(point);
 			}
-			
-			points.add(point);
 			
 		}
 		
@@ -118,8 +116,8 @@ public class AreaScanner {
 	private Coordinate pointPosition(int angle, int distance) {
 		
 		Coordinate coord = new Coordinate();
-		coord.x = (int) (odometer.getX() + (distance * Math.cos(Math.toRadians(angle))));
-		coord.y = (int) (odometer.getY() + (distance * Math.sin(Math.toRadians(angle))));
+		coord.x = (int) (odometer.getX() + (distance / Math.cos(Math.toRadians(angle))));
+		coord.y = (int) (odometer.getY() + (distance / Math.sin(Math.toRadians(angle))));
 		return coord;
 		
 	}
