@@ -37,14 +37,15 @@ public class Main {
 	static public final String DOOR_MOTOR_PORT = "C";
 	
 	/** The IP address of the competition server */
-	static public final String SERVER_IP = "192.168.2.40";
+	static public final String SERVER_IP = "192.168.2.3";
 	/** The team number of the robot (used by the wifi code) */
-	static public final int TEAM_NUMBER = 1;
+	static public final int TEAM_NUMBER = 16;
 
 	public static void main(String[] args) {
 		
-		CompetitionData competitionData = CompetitionDataFetcher.fetch();
 		Sound.beep();
+		
+		CompetitionData competitionData = CompetitionDataFetcher.fetch();
 		
 		if (competitionData == null) {
 			System.out.println("The demo can't start without wifi data. It crashed.");
@@ -71,13 +72,13 @@ public class Main {
 
 		// Driver
 		// Used for Driver debugging
-		/*
-		CompetitionData competitionData = new CompetitionData();
-		competitionData.greenZone.lowerLeft.x = 20;
-		competitionData.greenZone.lowerLeft.y = 20;
-		competitionData.greenZone.upperRight.x = 40;
-		competitionData.greenZone.upperRight.y = 40;
-		*/
+		
+		/*CompetitionData competitionData = new CompetitionData();
+		competitionData.greenZone.lowerLeft.x = 0;
+		competitionData.greenZone.lowerLeft.y = 60;
+		competitionData.greenZone.upperRight.x = 60;
+		competitionData.greenZone.upperRight.y = 90;*/
+		
 		Driver driver = new Driver(odometer, navigation, competitionData, areaScanner);
 		
 		// Localization
