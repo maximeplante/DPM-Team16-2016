@@ -118,8 +118,8 @@ public class AreaScanner {
 	private Coordinate pointPosition(int angle, int distance) {
 		
 		Coordinate coord = new Coordinate();
-		coord.x = (int) (odometer.getX() + (distance / Math.cos(Math.toRadians(angle))));
-		coord.y = (int) (odometer.getY() + (distance / Math.sin(Math.toRadians(angle))));
+		coord.x = (int) (odometer.getX() + (distance * Math.cos(Math.toRadians(angle))));
+		coord.y = (int) (odometer.getY() + (distance * Math.sin(Math.toRadians(angle))));
 		return coord;
 		
 	}
