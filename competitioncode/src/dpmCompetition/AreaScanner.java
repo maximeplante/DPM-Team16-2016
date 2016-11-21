@@ -13,7 +13,7 @@ public class AreaScanner {
 	private UsPoller usPoller;
 	private Odometer odometer;
 	
-	private static final int CLOSE_OBJECT_DISTANCE = 40;
+	private static final int CLOSE_OBJECT_DISTANCE = 90;
 
 	public AreaScanner(Navigation navigation, UsPoller usPoller, Odometer odometer) {
 		
