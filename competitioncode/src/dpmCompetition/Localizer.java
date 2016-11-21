@@ -83,7 +83,7 @@ public class Localizer {
 	 * @return true if the distance between the wall and the robot is less than 25cm
 	 */
 	private boolean seesWall() {
-		if (usPoller.getFilteredData() < 25)
+		if (usPoller.getFilteredData() < 30)
 			return true;
 		else
 			return false;
