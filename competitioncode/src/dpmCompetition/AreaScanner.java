@@ -27,7 +27,7 @@ public class AreaScanner {
 		
 		List<Integer> distances = new ArrayList<Integer>();
 		List<Integer> angles = new ArrayList<Integer>();
-		navigation.turn(360, true);
+		navigation.turn(90, true, 50);
 		while(navigation.isMoving()) {
 			distances.add((int) usPoller.getFilteredData());
 			angles.add((int) odometer.getTheta());
