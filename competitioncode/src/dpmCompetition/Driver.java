@@ -48,25 +48,31 @@ public class Driver {
 	public void travelToBlueBlock() {
 		Coordinate[] blueBlocks = areaScanner.findCloseObjects();
 		Coordinate[] destinations = new Coordinate[4];
+		destinations[0] = new Coordinate();
 		destinations[0].x = 0;
 		destinations[0].y = 0;
+		destinations[1] = new Coordinate();
 		destinations[1].x = 0;
-		destinations[1].y = 180;
-		destinations[2].x = 180;
-		destinations[2].y = 180;
-		destinations[3].x = 180;
+		destinations[1].y = 30;
+		destinations[2] = new Coordinate();
+		destinations[2].x = 30;
+		destinations[2].y = 30;
+		destinations[3] = new Coordinate();
+		destinations[3].x = 30;
 		destinations[3].y = 0;
 		int j = 1;
-		/*while (blueBlocks.length==0){
+		/*
+		while (blueBlocks.length == 0){
 			Sound.beep();
-			navigation.turn(Math.random()*(-90));
-			navigation.goForward(30);
+			navigation.turn(-90);
+			//navigation.turn(Math.random()*(-90));
+			//navigation.goForward(30);
 			blueBlocks = areaScanner.findCloseObjects();
 		}*/
 		while (blueBlocks.length == 0){
 			
 			travelTo(destinations[j%4].x, destinations[j%4].y);
-			navigation.turn(180);
+			navigation.turnTo(0);
 			blueBlocks = areaScanner.findCloseObjects();
 			j++;
 			
