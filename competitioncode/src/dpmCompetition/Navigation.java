@@ -88,7 +88,7 @@ public class Navigation {
 	 */
 	public void turn(double theta) {
 		
-		turn(theta, false);
+		turn(theta, false, TURN_SPEED);
 
 	}
 	
@@ -102,10 +102,16 @@ public class Navigation {
 	 */
 	public void turn(double theta, boolean immediateReturn) {
 		
+		turn(theta, immediateReturn, TURN_SPEED);
+
+	}
+	
+	public void turn(double theta, boolean immediateReturn, int speed) {
+		
 		isGoingStraight = false;
 
-		leftMotor.setSpeed(TURN_SPEED);
-		rightMotor.setSpeed(TURN_SPEED);
+		leftMotor.setSpeed(speed);
+		rightMotor.setSpeed(speed);
 
 		// Make the wheels turn the right amount of degrees to turn to the target theta
 		leftMotor.rotate((int)-convertAngle(Main.WHEEL_RADIUS, Main.TRACK, theta), true);
