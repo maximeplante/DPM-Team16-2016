@@ -14,6 +14,14 @@ public class AreaScanner {
 	private Odometer odometer;
 	
 	private static final int CLOSE_OBJECT_DISTANCE = 90;
+	private static final int SCANNING_SPEED = 50;
+	private static final int FILTER_SIZE = 3;
+	private static final int OBJECT_END_THRESHOLD_DISTANCE = 15;
+	private static final int WALL_UPPER_Y = 210;
+	private static final int WALL_LOWER_Y = 0;
+	private static final int WALL_UPPER_X = 210;
+	private static final int WALL_LOWER_X = 0;
+	private static final int MINIMAL_OBJECT_SIZE = 3;
 
 	public AreaScanner(Navigation navigation, UsPoller usPoller, Odometer odometer) {
 		
@@ -27,7 +35,7 @@ public class AreaScanner {
 		
 		List<Integer> distances = new ArrayList<Integer>();
 		List<Integer> angles = new ArrayList<Integer>();
-		navigation.turn(90, true, 50);
+		navigation.turn(360, true, SCANNING_SPEED);
 		while(navigation.isMoving()) {
 			distances.add((int) usPoller.getFilteredData());
 			angles.add((int) odometer.getTheta());
@@ -55,7 +63,7 @@ public class AreaScanner {
 			
 			endObjectIndex = findEndObjectIndex(startObjectIndex, distances);
 			
-			if (endObjectIndex - startObjectIndex < 3) {
+			if (endObjectIndex - startObjectIndex < MINIMAL_OBJECT_SIZE) {
 				continue;
 			}
 			
@@ -70,9 +78,9 @@ public class AreaScanner {
 			
 			Coordinate point = pointPosition(angles.get(middleObjectIndex), distances.get(middleObjectIndex));
 			
-			/*if (point.x < 0 || point.x > 210 || point.y < 0 || point.y > 210) {
+			if (point.x < WALL_LOWER_X || point.x > WALL_UPPER_X || point.y < WALL_LOWER_Y || point.y > WALL_UPPER_Y) {
 				continue;
-			}*/
+			}
 			
 			points.add(point);
 			
@@ -88,14 +96,14 @@ public class AreaScanner {
 		
 		int filterCounter = 0;
 		
-		for (int i = objectOffset + 3; i < distances.size(); i++) {
-			for (int j = 0; j < 3; j++) {
-				if (Math.abs(distances.get(i) - distances.get(i-j-1)) > 15) {
+		for (int i = objectOffset + FILTER_SIZE; i < distances.size(); i++) {
+			for (int j = 0; j < FILTER_SIZE; j++) {
+				if (Math.abs(distances.get(i) - distances.get(i-j-1)) > OBJECT_END_THRESHOLD_DISTANCE) {
 					filterCounter++;
 				}
 			}
-			if (filterCounter == 3) {
-				return i-3;
+			if (filterCounter == FILTER_SIZE) {
+				return i-FILTER_SIZE;
 			}
 			filterCounter = 0;
 		}
