@@ -13,7 +13,7 @@ public class AreaScanner {
 	private UsPoller usPoller;
 	private Odometer odometer;
 	
-	private static final int CLOSE_OBJECT_DISTANCE = 90;
+	private static final int CLOSE_OBJECT_DISTANCE = 50;
 	private static final int SCANNING_SPEED = 50;
 	private static final int FILTER_SIZE = 3;
 	private static final int OBJECT_END_THRESHOLD_DISTANCE = 15;
