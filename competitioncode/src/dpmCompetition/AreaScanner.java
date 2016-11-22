@@ -56,10 +56,6 @@ public class AreaScanner {
 				break;
 			}
 			
-			Sound.beep();
-			
-			sleep(500);
-			
 			endObjectIndex = findEndObjectIndex(startObjectIndex, distances);
 			
 			if (endObjectIndex - startObjectIndex < MINIMAL_OBJECT_SIZE) {
