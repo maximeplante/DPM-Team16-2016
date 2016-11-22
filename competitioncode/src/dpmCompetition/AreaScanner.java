@@ -32,7 +32,7 @@ public class AreaScanner {
 		
 	}
 	
-	public Coordinate[] findCloseObjects() {
+	public Block[] findCloseObjects() {
 		
 		List<Integer> distances = new ArrayList<Integer>();
 		List<Integer> angles = new ArrayList<Integer>();
@@ -47,7 +47,7 @@ public class AreaScanner {
 		int startObjectIndex = 0;
 		int endObjectIndex = 0;
 		
-		List<Coordinate> points = new ArrayList<Coordinate>();
+		List<Block> blocks = new ArrayList<Block>();
 		
 		while (true) {
 			
@@ -68,20 +68,27 @@ public class AreaScanner {
 			
 			int middleObjectIndex = (endObjectIndex - startObjectIndex)/2 + startObjectIndex;
 			
-			Coordinate point = pointPosition(angles.get(middleObjectIndex), distances.get(middleObjectIndex));
+			Coordinate center = pointPosition(angles.get(middleObjectIndex), distances.get(middleObjectIndex));
+			Coordinate left = pointPosition(angles.get(endObjectIndex), distances.get(endObjectIndex));
+			Coordinate right = pointPosition(angles.get(startObjectIndex), distances.get(startObjectIndex));
 			
-			if (point.x < WALL_LOWER_X || point.x > WALL_UPPER_X || point.y < WALL_LOWER_Y || point.y > WALL_UPPER_Y) {
+			if (center.x < WALL_LOWER_X || center.x > WALL_UPPER_X || center.y < WALL_LOWER_Y || center.y > WALL_UPPER_Y) {
 				continue;
 			}
 			
-			points.add(point);
+			Block block = new Block();
+			block.center = center;
+			block.left = left;
+			block.right = right;
+			
+			blocks.add(block);
 			
 		}
 		
-		Coordinate[] pointsArray = new Coordinate[points.size()];
-		points.toArray(pointsArray);
+		Block[] blocksArray = new Block[blocks.size()];
+		blocks.toArray(blocksArray);
 		
-		return pointsArray;
+		return blocksArray;
 	}
 	
 	private int findEndObjectIndex(int objectOffset, List<Integer> distances) {

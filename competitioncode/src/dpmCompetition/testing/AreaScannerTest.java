@@ -21,9 +21,9 @@ public class AreaScannerTest extends Thread {
 		
 		//localizer.localize();
 		
-		Coordinate[] coords = areaScanner.findCloseObjects();
+		Block[] blocks = areaScanner.findCloseObjects();
 		
-		driver.travelTo(coords[0].x, coords[0].y);
+		driver.travelTo(blocks[0].center.x, blocks[0].center.y);
 		
 	}
 	

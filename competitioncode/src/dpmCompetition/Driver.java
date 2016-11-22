@@ -46,7 +46,7 @@ public class Driver {
 	 * The robot travels to the closest blue block.
 	 */
 	public void travelToBlueBlock() {
-		Coordinate[] blueBlocks = areaScanner.findCloseObjects();
+		Block[] blueBlocks = areaScanner.findCloseObjects();
 		Coordinate[] destinations = new Coordinate[4];
 		destinations[0] = new Coordinate();
 		destinations[0].x = 0;
@@ -81,18 +81,18 @@ public class Driver {
 		double odometerX = odometer.getX();
 		double odometerY = odometer.getY();
 		double minDist = Math
-				.sqrt(Math.pow(blueBlocks[0].x - odometerX, 2) + Math.pow(blueBlocks[0].y - odometerY, 2));
+				.sqrt(Math.pow(blueBlocks[0].center.x - odometerX, 2) + Math.pow(blueBlocks[0].center.y - odometerY, 2));
 		for (int i = 1; i < blueBlocks.length; i++) {
 			double dist = Math
-					.sqrt(Math.pow(blueBlocks[i].x - odometerX, 2) + Math.pow(blueBlocks[i].y - odometerY, 2));
+					.sqrt(Math.pow(blueBlocks[i].center.x - odometerX, 2) + Math.pow(blueBlocks[i].center.y - odometerY, 2));
 			if (dist < minDist){
 				minDist = dist;
 				index = i;
 			}
 		}
-		Display.print(blueBlocks[index].x, 4);
-		Display.print(blueBlocks[index].y, 5);
-		travelTo(blueBlocks[index].x, blueBlocks[index].y);
+		Display.print(blueBlocks[index].center.x, 4);
+		Display.print(blueBlocks[index].center.y, 5);
+		travelTo(blueBlocks[index].center.x, blueBlocks[index].center.y);
 	}
 
 	// only consider the case that the robot will only go to the green zone once
