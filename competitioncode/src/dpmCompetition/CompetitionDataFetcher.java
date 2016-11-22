@@ -40,15 +40,15 @@ public abstract class CompetitionDataFetcher {
 		competitionData.builderStaringCorner = data.get("BSC");
 		competitionData.collectorStartingCorner = data.get("CSC");
 		
-		competitionData.greenZone.lowerLeft.y = data.get("LGZx") * 30;
-		competitionData.greenZone.lowerLeft.x = data.get("LGZy") * 30;
-		competitionData.greenZone.upperRight.y = data.get("UGZx") * 30;
-		competitionData.greenZone.upperRight.x = data.get("UGZy") * 30;
+		competitionData.greenZone.lowerLeft.x = data.get("LGZx") * 30;
+		competitionData.greenZone.lowerLeft.y = data.get("LGZy") * 30;
+		competitionData.greenZone.upperRight.x = data.get("UGZx") * 30;
+		competitionData.greenZone.upperRight.y = data.get("UGZy") * 30;
 		
-		competitionData.redZone.lowerLeft.y = data.get("LRZx") * 30;
-		competitionData.redZone.lowerLeft.x = data.get("LRZy") * 30;
-		competitionData.redZone.upperRight.y = data.get("URZx") * 30;
-		competitionData.redZone.upperRight.x = data.get("URZy") * 30;
+		competitionData.redZone.lowerLeft.x = data.get("LRZx") * 30;
+		competitionData.redZone.lowerLeft.y = data.get("LRZy") * 30;
+		competitionData.redZone.upperRight.x = data.get("URZx") * 30;
+		competitionData.redZone.upperRight.y = data.get("URZy") * 30;
 		
 		return competitionData;
 	}
