@@ -28,9 +28,9 @@ public class Main {
 	static public final double TRACK = 23.5;
 	
 	/** The port used on the EV3 brick to connect the left wheel motor */
-	static public final String LEFT_WHEEL_MOTOR_PORT = "A";
+	static public final String LEFT_WHEEL_MOTOR_PORT = "D";
 	/** The port used on the EV3 brick to connect the right wheel motor */
-	static public final String RIGHT_WHEEL_MOTOR_PORT = "D";
+	static public final String RIGHT_WHEEL_MOTOR_PORT = "A";
 	/** The port used on the EV3 brick to connect the claw motor */
 	static public final String CLAW_MOTOR_PORT = "B";
 	/** The port used on the EV3 brick to connect the door motor */
