@@ -48,8 +48,6 @@ public class AreaScanner {
 		
 		List<Coordinate> points = new ArrayList<Coordinate>();
 		
-		boolean first = true;
-		
 		while (true) {
 			
 			startObjectIndex = findNextObjectIndex(endObjectIndex + 1, distances);
@@ -69,12 +67,6 @@ public class AreaScanner {
 			
 			int middleObjectIndex = (endObjectIndex - startObjectIndex)/2 + startObjectIndex;
 			
-			if (first) {
-				Display.print(startObjectIndex, 3);
-				Display.print(middleObjectIndex, 4);
-				Display.print(endObjectIndex, 5);
-				first = false;
-			}
 			
 			Coordinate point = pointPosition(angles.get(middleObjectIndex), distances.get(middleObjectIndex));
 			
