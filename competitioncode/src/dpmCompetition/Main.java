@@ -20,7 +20,7 @@ public class Main {
 	static public final String Left_LS_PORT = "S4";
 	
 	/** The port used on the EV3 brick to connect the ultrasonic sensor */
-	static public final String US_SENSOR_PORT = "S2";
+	static public final String US_SENSOR_PORT = "S1";
 	/** The horizontal offset in cm of the ultrasonic sensor from the wheels' chassi */
 	static public final double UPPER_US_OFFSET = 14.0;
 	
