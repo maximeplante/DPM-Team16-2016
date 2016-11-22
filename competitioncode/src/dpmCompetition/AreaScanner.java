@@ -67,7 +67,6 @@ public class AreaScanner {
 			
 			int middleObjectIndex = (endObjectIndex - startObjectIndex)/2 + startObjectIndex;
 			
-			
 			Coordinate point = pointPosition(angles.get(middleObjectIndex), distances.get(middleObjectIndex));
 			
 			if (point.x < WALL_LOWER_X || point.x > WALL_UPPER_X || point.y < WALL_LOWER_Y || point.y > WALL_UPPER_Y) {
@@ -121,16 +120,6 @@ public class AreaScanner {
 		coord.x = (int) (odometer.getX() + (distance * Math.cos(Math.toRadians(angle))));
 		coord.y = (int) (odometer.getY() + (distance * Math.sin(Math.toRadians(angle))));
 		return coord;
-		
-	}
-	
-	private int averageObjectDistance(int start, int end, List<Integer> distances) {
-		
-		int sum = 0;
-		for (int i = start; i < end; i++) {
-			sum += distances.get(i);
-		}
-		return sum / (end - start);
 		
 	}
 	
