@@ -22,6 +22,7 @@ public class AreaScanner {
 	private static final int WALL_UPPER_X = 210;
 	private static final int WALL_LOWER_X = 0;
 	private static final int MINIMAL_OBJECT_SIZE = 3;
+	private static final int DISTANCE_ERROR_OFFSET = 3;
 
 	public AreaScanner(Navigation navigation, UsPoller usPoller, Odometer odometer) {
 		
@@ -37,7 +38,7 @@ public class AreaScanner {
 		List<Integer> angles = new ArrayList<Integer>();
 		navigation.turn(360, true, SCANNING_SPEED);
 		while(navigation.isMoving()) {
-			distances.add((int) usPoller.getFilteredData());
+			distances.add((int) (usPoller.getFilteredData() - Main.UPPER_US_OFFSET - DISTANCE_ERROR_OFFSET));
 			angles.add((int) odometer.getTheta());
 			
 			sleep(100);
