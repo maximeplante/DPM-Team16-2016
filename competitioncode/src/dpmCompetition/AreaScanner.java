@@ -3,8 +3,6 @@ package dpmCompetition;
 import java.util.ArrayList;
 import java.util.List;
 
-import lejos.hardware.Sound;
-
 // TODO: A lot of values in the code of this class could be turned into constants.
 
 public class AreaScanner {
@@ -73,10 +71,6 @@ public class AreaScanner {
 			if (center.x < WALL_LOWER_X || center.x > WALL_UPPER_X || center.y < WALL_LOWER_Y || center.y > WALL_UPPER_Y) {
 				continue;
 			}
-			
-			Sound.beep();
-			
-			sleep(500);
 			
 			Block block = new Block();
 			block.center = center;
