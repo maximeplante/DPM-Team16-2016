@@ -1,5 +1,6 @@
 package dpmCompetition.testing;
 
+import lejos.hardware.Sound;
 import dpmCompetition.*;
 
 public class AreaScannerTest extends Thread {
@@ -23,7 +24,10 @@ public class AreaScannerTest extends Thread {
 		
 		Block[] blocks = areaScanner.findCloseObjects();
 		
-		driver.travelTo(blocks[0].center.x, blocks[0].center.y);
+		for (Block block: blocks) {
+			Sound.beep();
+			Thread.sleep(500);
+		}
 		
 	}
 	
