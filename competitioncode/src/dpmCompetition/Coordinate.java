@@ -5,5 +5,5 @@ package dpmCompetition;
  *
  */
 public class Coordinate extends Stringer {
-	public int x, y;
+	public double x, y;
 }

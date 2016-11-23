@@ -88,6 +88,10 @@ public class UsPoller extends Thread {
 		return medianDistance;
 	}
 	
+	public float getRawData() {
+		return usPreviousData.get(usPreviousData.size() - 1);
+	}
+	
 	
 	/**
 	 * Median filter

@@ -13,7 +13,7 @@ public class AreaScanner {
 	private UsPoller usPoller;
 	private Odometer odometer;
 	
-	private static final int CLOSE_OBJECT_DISTANCE = 50;
+	private static final int CLOSE_OBJECT_DISTANCE = 70;
 	private static final int SCANNING_SPEED = 50;
 	private static final int FILTER_SIZE = 3;
 	private static final int OBJECT_END_THRESHOLD_DISTANCE = 15;
@@ -22,7 +22,6 @@ public class AreaScanner {
 	private static final int WALL_UPPER_X = 210;
 	private static final int WALL_LOWER_X = 0;
 	private static final int MINIMAL_OBJECT_SIZE = 3;
-	private static final int DISTANCE_ERROR_OFFSET = 3;
 
 	public AreaScanner(Navigation navigation, UsPoller usPoller, Odometer odometer) {
 		
@@ -36,12 +35,15 @@ public class AreaScanner {
 		
 		List<Integer> distances = new ArrayList<Integer>();
 		List<Integer> angles = new ArrayList<Integer>();
-		navigation.turn(360, true, SCANNING_SPEED);
+		navigation.turn(90, true, SCANNING_SPEED);
+		
 		while(navigation.isMoving()) {
-			distances.add((int) (usPoller.getFilteredData() - Main.UPPER_US_OFFSET - DISTANCE_ERROR_OFFSET));
+			
+			distances.add((int) (usPoller.getRawData() + Main.UPPER_US_OFFSET));
 			angles.add((int) odometer.getTheta());
 			
 			sleep(100);
+			
 		}
 		
 		int startObjectIndex = 0;
@@ -72,6 +74,10 @@ public class AreaScanner {
 				continue;
 			}
 			
+			Sound.beep();
+			
+			sleep(500);
+			
 			Block block = new Block();
 			block.center = center;
 			block.left = left;
@@ -97,7 +103,7 @@ public class AreaScanner {
 					filterCounter++;
 				}
 			}
-			if (filterCounter == FILTER_SIZE) {
+			if (filterCounter > 1) {
 				return i-FILTER_SIZE;
 			}
 			filterCounter = 0;
@@ -121,8 +127,8 @@ public class AreaScanner {
 	private Coordinate pointPosition(int angle, int distance) {
 		
 		Coordinate coord = new Coordinate();
-		coord.x = (int) (odometer.getX() + (distance / Math.sin(Math.toRadians(angle))));
-		coord.y = (int) (odometer.getY() + (distance / Math.cos(Math.toRadians(angle))));
+		coord.x = odometer.getX() + (distance * Math.cos(Math.toRadians(angle)));
+		coord.y = odometer.getY() + (distance * Math.sin(Math.toRadians(angle)));
 		return coord;
 		
 	}
