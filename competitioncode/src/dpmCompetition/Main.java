@@ -10,10 +10,15 @@ import dpmCompetition.wifi.WifiConnection;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 
 public class Main {
 
+	static public final String Front_LS_PORT = "S1";
+	static public final String Right_LS_PORT = "S3";
+	static public final String Left_LS_PORT = "S4";
+	
 	/** The port used on the EV3 brick to connect the ultrasonic sensor */
 	static public final String US_SENSOR_PORT = "S2";
 	/** The horizontal offset in cm of the ultrasonic sensor from the wheels' chassi */
@@ -63,6 +68,15 @@ public class Main {
 		// Sensors
 		EV3UltrasonicSensor us = new EV3UltrasonicSensor(LocalEV3.get().getPort(US_SENSOR_PORT));
 		UsPoller usPoller = new UsPoller(us.getDistanceMode());
+		
+		EV3ColorSensor ls1 = new EV3ColorSensor(LocalEV3.get().getPort(Front_LS_PORT));
+		LsPoller lsPoller1 = new LsPoller(ls1.getRGBMode());
+
+		EV3ColorSensor ls2 = new EV3ColorSensor(LocalEV3.get().getPort(Right_LS_PORT));
+		LsPoller lsPoller2 = new LsPoller(ls2.getRGBMode());
+		
+		EV3ColorSensor ls3 = new EV3ColorSensor(LocalEV3.get().getPort(Left_LS_PORT));
+		LsPoller lsPoller3 = new LsPoller(ls3.getRGBMode());
 		
 		// Navigation
 		Navigation navigation = new Navigation(odometer, motorsController);

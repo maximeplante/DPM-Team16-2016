@@ -26,6 +26,21 @@ public class LsPoller extends Thread {
 	/** The boolean variable that represents whether the robot sees a blue block */
 	private boolean seeBlueBlock;
 	
+	/** The boolean variable that represents whether the robot sees a wooden block */
+	private boolean seeWoodBlock;
+	
+	/** The double for blue/red value taken from RGB mode*/
+	private double BRratio;
+	
+	/** The double representing tested blue styrofoam blue/red ratio*/
+	private double blueRatio = 1.4;
+	
+	/** The double representing tested wooden block blue/red ratio*/
+	private double woodRatio = 0.4;
+	
+	/** The double representing error margin for blue/red ratio*/
+	private double errMargin = 0.2;
+	
 	
 	/**
 	 * Constructor
@@ -46,6 +61,8 @@ public class LsPoller extends Thread {
 		seeBlackLine = false;
 		
 		seeBlueBlock = false;
+		
+		seeWoodBlock = false;
 		
 	}
 
@@ -69,6 +86,19 @@ public class LsPoller extends Thread {
 				seeBlackLine = true;
 			} else {
 				seeBlackLine = false;
+			}
+			
+			BRratio = lsData[2]/lsData[0];
+			
+			if (((blueRatio - errMargin) < BRratio) && ((blueRatio + errMargin) > BRratio)) {
+				seeBlueBlock = true;
+			}
+			else if (((woodRatio - errMargin) < BRratio) && ((woodRatio + errMargin) > BRratio)) {
+				seeWoodBlock = true;
+			}
+			else {
+				seeBlueBlock = false;
+				seeWoodBlock = false;
 			}
 			
 			// Add the latest light sensor reading to the table of the previous light sensor readings
@@ -108,5 +138,13 @@ public class LsPoller extends Thread {
 	 */
 	public boolean isSeeingBlueBlock() {
 		return seeBlueBlock;
+	}
+	
+	/**
+	 * 
+	 * @return the state of whether the robot sees a wooden block
+	 */
+	public boolean isSeeingWoodenBlock() {
+		return seeWoodBlock;
 	}
 }
