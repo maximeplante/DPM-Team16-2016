@@ -14,10 +14,11 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 
 public class Main {
-
-	static public final String Front_LS_PORT = "S1";
-	static public final String Right_LS_PORT = "S3";
-	static public final String Left_LS_PORT = "S4";
+	
+	/** The ports used on the EV3 brick to connect the color sensor */
+	static public final String Front_LS_PORT = "S2";
+	static public final String Left_LS_PORT = "S3";
+	static public final String Right_LS_PORT = "S4";
 	
 	/** The port used on the EV3 brick to connect the ultrasonic sensor */
 	static public final String US_SENSOR_PORT = "S1";
