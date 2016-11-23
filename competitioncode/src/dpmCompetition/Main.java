@@ -114,6 +114,10 @@ public class Main {
 		display.start();
 		odometer.start();
 		
+		lsPoller1.start();
+		lsPoller2.start();
+		lsPoller3.start();
+		
 		// Navigation test
 		//NavigationTest navigationTest = new NavigationTest(driver, localizer);
 		//navigationTest.start();
