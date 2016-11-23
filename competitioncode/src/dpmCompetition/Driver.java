@@ -1,7 +1,5 @@
 package dpmCompetition;
 
-import lejos.hardware.Sound;
-
 /**
  * Provides robot the capabilities of traveling to different destinations
  * 
@@ -23,6 +21,8 @@ public class Driver {
 	private final int TIMEOUT_PERIOD = 20;
     /** The offset for the robot to travel to the center of a square  */
 	private final double squareOffset = 15.0;
+	
+	boolean first = true;
 
 	
 	/**
@@ -46,53 +46,51 @@ public class Driver {
 	 * The robot travels to the closest blue block.
 	 */
 	public void travelToBlueBlock() {
-		Block[] blueBlocks = areaScanner.findCloseObjects();
-		Coordinate[] destinations = new Coordinate[4];
-		destinations[0] = new Coordinate();
-		destinations[0].x = 0;
-		destinations[0].y = 0;
-		destinations[1] = new Coordinate();
-		destinations[1].x = 0;
-		destinations[1].y = 30;
-		destinations[2] = new Coordinate();
-		destinations[2].x = 30;
-		destinations[2].y = 30;
-		destinations[3] = new Coordinate();
-		destinations[3].x = 30;
-		destinations[3].y = 0;
-		int j = 1;
-		/*
-		while (blueBlocks.length == 0){
-			Sound.beep();
-			navigation.turn(-90);
-			//navigation.turn(Math.random()*(-90));
-			//navigation.goForward(30);
-			blueBlocks = areaScanner.findCloseObjects();
-		}*/
-		while (blueBlocks.length == 0){
+		Block[] blocks = areaScanner.findCloseObjects();
+		
+		double initialX = odometer.getX();
+		double initialY = odometer.getY();
+		
+		for (Block block: blocks) {
+			Display.print(block.center.x, 4);
+			Display.print(block.center.y, 5);
+			Coordinate coord = removeOffset(block.center, Main.UPPER_US_OFFSET);
 			
-			travelTo(destinations[j%4].x, destinations[j%4].y);
-			navigation.turnTo(0);
-			blueBlocks = areaScanner.findCloseObjects();
-			j++;
-			
-		}
-		int index = 0;
-		double odometerX = odometer.getX();
-		double odometerY = odometer.getY();
-		double minDist = Math
-				.sqrt(Math.pow(blueBlocks[0].center.x - odometerX, 2) + Math.pow(blueBlocks[0].center.y - odometerY, 2));
-		for (int i = 1; i < blueBlocks.length; i++) {
-			double dist = Math
-					.sqrt(Math.pow(blueBlocks[i].center.x - odometerX, 2) + Math.pow(blueBlocks[i].center.y - odometerY, 2));
-			if (dist < minDist){
-				minDist = dist;
-				index = i;
+			travelTo(coord.x, coord.y);
+			if (isBlueBlock()) {
+				return;
+			} else if (isObstacle()){
+				travelTo(initialX, initialY);
 			}
 		}
-		Display.print(blueBlocks[index].center.x, 4);
-		Display.print(blueBlocks[index].center.y, 5);
-		travelTo(blueBlocks[index].center.x, blueBlocks[index].center.y);
+		
+	}
+	
+	private boolean isBlueBlock() {
+		
+		return !first;
+		
+	}
+	
+	private boolean isObstacle() {
+		
+		if (first) {
+			first = false;
+			return true;
+		}
+		return false;
+		
+	}
+	
+	private Coordinate removeOffset(Coordinate coord, double offset) {
+		
+		double angle = Math.atan2(coord.y, coord.x);
+		Coordinate newCoord = new Coordinate();
+		newCoord.x = coord.x - (16.0 * Math.cos(angle));
+		newCoord.y = coord.y - (16.0 * Math.sin(angle));
+		
+		return newCoord;
+		
 	}
 
 	// only consider the case that the robot will only go to the green zone once
