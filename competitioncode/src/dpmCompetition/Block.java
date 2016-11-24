@@ -1,7 +1,7 @@
 package dpmCompetition;
 
 /**
- *
+ * Block object that is defined by three coordinates: center, left and right coordinates.
  */
 public class Block {
 
