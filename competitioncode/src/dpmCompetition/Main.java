@@ -71,13 +71,13 @@ public class Main {
 		UsPoller usPoller = new UsPoller(us.getDistanceMode());
 		
 		EV3ColorSensor ls1 = new EV3ColorSensor(LocalEV3.get().getPort(Front_LS_PORT));
-		LsPoller lsPoller1 = new LsPoller(ls1.getRGBMode());
+		LsPoller frontLsPoller = new LsPoller(ls1.getRGBMode());
 
 		EV3ColorSensor ls2 = new EV3ColorSensor(LocalEV3.get().getPort(Right_LS_PORT));
-		LsPoller lsPoller2 = new LsPoller(ls2.getRGBMode());
+		LsPoller rightLsPoller = new LsPoller(ls2.getRedMode());
 		
 		EV3ColorSensor ls3 = new EV3ColorSensor(LocalEV3.get().getPort(Left_LS_PORT));
-		LsPoller lsPoller3 = new LsPoller(ls3.getRGBMode());
+		LsPoller leftLsPoller = new LsPoller(ls3.getRedMode());
 		
 		// Navigation
 		Navigation navigation = new Navigation(odometer, motorsController);
@@ -114,9 +114,9 @@ public class Main {
 		display.start();
 		odometer.start();
 		
-		lsPoller1.start();
-		lsPoller2.start();
-		lsPoller3.start();
+		frontLsPoller.start();
+		rightLsPoller.start();
+		leftLsPoller.start();
 		
 		// Navigation test
 		//NavigationTest navigationTest = new NavigationTest(driver, localizer);
