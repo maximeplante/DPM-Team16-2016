@@ -70,14 +70,15 @@ public class OdometerCorrection extends Thread {
 		int direction = 1;
 		double[] position = new double[3];
 		boolean[] update = new boolean[3];
-		//Sound.beepSequence();
+		
 		while (true) {
 			//if (navigation.isGoingStraight&&!isAtCorner()){
-				// first sensor sees the line
+				//don't do correction when the robot is close to the corner and when it is turning
 				while ((!leftLsPoller.isSeeingBlackLine() && !rightLsPoller.isSeeingBlackLine())|| isAtCorner() || !navigation.isGoingStraight) {
 					//Sound.beep();
 					//sleep(50);
 				}
+				// first sensor sees the line
 				if (leftLsPoller.isSeeingBlackLine()){
 					Sound.beepSequenceUp();
 					direction = 1;}
