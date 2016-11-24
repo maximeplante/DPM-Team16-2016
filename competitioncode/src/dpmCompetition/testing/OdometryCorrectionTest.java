@@ -1,23 +1,22 @@
 package dpmCompetition.testing;
 
-import dpmCompetition.AreaScanner;
 import dpmCompetition.Driver;
 import dpmCompetition.Localizer;
+import dpmCompetition.Navigation;
 import dpmCompetition.OdometerCorrection;
 
-public class OdometryCorrectionTesting extends Thread{
-	private OdometerCorrection odoCorrection;
+public class OdometryCorrectionTest extends Thread{
 	private Driver driver;
 	private Localizer localizer;
+	private Navigation navigation;
 	
-	public OdometryCorrectionTesting(OdometerCorrection odoCorrection, Driver driver, Localizer localizer) {
-		this.odoCorrection = odoCorrection;
+	public OdometryCorrectionTest(Driver driver, Localizer localizer, Navigation navigation) {
 		this.driver = driver;
 		this.localizer = localizer;
+		this.navigation = navigation;
 	}
 	
 	public void run(){
-		localizer.localize();
 		driver.travelTo(15, 0);
 		driver.travelTo(15, 70);
 	}
