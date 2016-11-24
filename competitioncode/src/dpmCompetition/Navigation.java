@@ -106,6 +106,13 @@ public class Navigation {
 
 	}
 	
+	/**
+	 * Turns the robot on itself by certain amount of degress and at a certain rotate speed
+	 * 
+	 * @param theta the amount of degrees to turn (in degrees)
+	 * @param immediateReturn true if the method should return without waiting for the robot to finish turning
+	 * @param speed the speed that the robot turns
+	 */
 	public void turn(double theta, boolean immediateReturn, int speed) {
 		
 		isGoingStraight = false;
