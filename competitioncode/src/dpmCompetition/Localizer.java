@@ -23,7 +23,7 @@ public class Localizer {
 	 * is found under that delay (ms), it means that this wall is not really a wall but
 	 * a block that has been detected as a wall.
 	 */
-	private static final int MINIMAL_VALID_WALL_DETECTION_DELAY = 5000;
+	private static final int MINIMAL_VALID_WALL_DETECTION_DELAY = 2000;
 
 	/**
 	 * Constructor

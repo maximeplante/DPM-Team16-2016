@@ -19,7 +19,7 @@ public class Navigation {
 	/** The speed at which the wheels should turn when the robot is going forward */
 	public static final int FORWARD_SPEED = 100;
 	/** The speed at which the wheels should turn when the robot is turning on itself */
-	private static final int TURN_SPEED = 100;
+	private static final int TURN_SPEED = 150;
 	
 	/** True only when the robot is moving straight (false if the robot is turning or not moving) */
 	public boolean isGoingStraight;
