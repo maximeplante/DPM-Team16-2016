@@ -53,20 +53,25 @@ public class Driver {
 		
 		double initialX = odometer.getX();
 		double initialY = odometer.getY();
-		
-		for (Block block: blocks) {
-			Display.print(block.center.x, 4);
-			Display.print(block.center.y, 5);
-			Coordinate coord = removeOffset(block.center, Main.US_OFFSET);
-			
-			travelTo(coord.x, coord.y);
-			Helper.sleep(200);
-			if (isBlueBlock()) {
-				return;
-			} else /*if (isObstacle())*/{
-				navigation.goForward(-10);
-				travelTo(initialX, initialY);
+		for (int i=0; i < 5; i++) {
+			for (Block block: blocks) {
+				Display.print(block.center.x, 4);
+				Display.print(block.center.y, 5);
+				Coordinate coord = removeOffset(block.center, Main.US_OFFSET);
+				
+				travelTo(coord.x, coord.y);
+				Helper.sleep(200);
+				if (isBlueBlock()) {
+					return;
+				} else /*if (isObstacle())*/{
+					navigation.goForward(-10);
+					travelTo(initialX, initialY);
+				}
 			}
+			initialX += 20;
+			initialY += 20;
+			travelTo(initialX, initialY);
+			navigation.turnTo(0);
 		}
 		
 	}
