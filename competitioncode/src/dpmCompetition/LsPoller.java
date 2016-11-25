@@ -60,8 +60,10 @@ public class LsPoller extends Thread {
 		// Assume we don't see a black line initially
 		seeBlackLine = false;
 		
+		// Assume we don't see a blue block initially
 		seeBlueBlock = false;
 		
+		// Assume we don't see a wooden block initially
 		seeWoodBlock = false;
 		
 	}
@@ -88,8 +90,14 @@ public class LsPoller extends Thread {
 				seeBlackLine = false;
 			}
 			
+			/* Do detect the blue block and wooden block, we are using color ratios
+			 * to make the detection work independently of the environment.
+			 */
+			
+			// Blue/Red ratio
 			BRratio = lsData[2]/lsData[0];
 			
+			// Check if the ratio is close to the ratio for a blue block or a wooden block
 			if (((blueRatio - errMargin) < BRratio) && ((blueRatio + errMargin) > BRratio)) {
 				seeBlueBlock = true;
 			}

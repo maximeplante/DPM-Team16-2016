@@ -71,7 +71,7 @@ public class AreaScanner {
 		while(navigation.isMoving()) {
 			
 			// Add the reading and include the offset of the us compared to the robot's rotation center
-			distances.add((int) (usPoller.getFilteredData() + Main.UPPER_US_OFFSET));
+			distances.add((int) (usPoller.getFilteredData() + Main.US_OFFSET));
 			// Records the angle of each reading
 			angles.add((int) odometer.getTheta());
 			
@@ -122,6 +122,7 @@ public class AreaScanner {
 				continue;
 			}
 			
+			// Used for debugging
 			Sound.beep();
 			sleep(500);
 			
@@ -148,16 +149,18 @@ public class AreaScanner {
 	 * 
 	 * @param offset index offset at which start the search for the object
 	 * @param distances the list of distance samples
-	 * @return the index of the sample at which the object is first detected
+	 * @return the index of the sample at which the object is first detected or -1 if no object found
 	 */
 	private int findNextObjectIndex(int offset, List<Integer> distances) {
 		
 		for(int i = offset; i < distances.size(); i++) {
+			// Returns the first sample at which an object is detected as "being close"
 			if (distances.get(i) < CLOSE_OBJECT_DISTANCE) {
 				return i;
 			}
 		}
 		
+		// If there is no object in the sample
 		return -1;
 		
 	}
@@ -176,7 +179,7 @@ public class AreaScanner {
 		// Search the distance samples for the ending of the object
 		for (int i = objectOffset; i < distances.size() - FILTER_SIZE; i++) {
 			for (int j = 0; j < FILTER_SIZE; j++) {
-				if (Math.abs(distances.get(i) - distances.get(i+j)) > 15) {
+				if (Math.abs(distances.get(i) - distances.get(i+j)) > OBJECT_END_THRESHOLD_DISTANCE) {
 					filterCounter++;
 				}
 			}

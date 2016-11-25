@@ -5,7 +5,7 @@ package dpmCompetition;
  * Declares competition's data
  *
  */
-public class CompetitionData extends Stringer {
+public class CompetitionData {
 	/** Team number for builder */
 	int builderTeamNumber;
 	/** Starting corner for builder */

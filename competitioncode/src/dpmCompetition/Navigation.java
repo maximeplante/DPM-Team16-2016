@@ -235,10 +235,6 @@ public class Navigation {
 		return difference;
 	}
 
-	// Code given with the lab 2
-	// Calculates how much degrees the wheels should turn to make the plant turn an [angle] number of degrees.
-	// NOTE: the parameters and the value are in degrees.
-
 	/**
 	 * Calculates how much degrees the wheels should turn to make the robot turn a certain number of degrees on itself.
 	 *
@@ -253,9 +249,6 @@ public class Navigation {
 		return convertDistance(radius, Math.PI * width * angle / 360.0);
 	}
 
-	// Code given with the lab 2
-	// Calculates how much degrees the wheels should turn to cover a given distance (cm)
-	// NOTE: the return value is in degrees.
 	/**
 	 * Calculates how much degrees the wheels should turn to cover a given distance (cm)
 	 *

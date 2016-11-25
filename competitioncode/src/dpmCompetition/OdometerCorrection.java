@@ -32,9 +32,7 @@ public class OdometerCorrection extends Thread {
 	private int cornerRadius = 5;
 
 	/** The radius of the robot's wheels (cm) */
-	double radius = Main.WHEEL_RADIUS;// get the value from other class later (radius of the
-						// wheels)
-	// to be determine
+	double radius = Main.WHEEL_RADIUS;
 	/** The distance between two sensors (cm) */
 	private double sensorRadius = 11;
 	
@@ -177,8 +175,7 @@ public class OdometerCorrection extends Thread {
 			}
 		//}
 	}
-
-	// check if the robot is at the corner of the square
+	
 	/**
 	 * Determine whether the robot is at the corner base on its current
 	 * odometer's reading If the robot is within 5cm around the corner, it is
@@ -197,9 +194,7 @@ public class OdometerCorrection extends Thread {
 		}
 		return true;
 	}
-
-	// determine whether the robot is crossing an x axis (horizontal) or a y
-	// (vertical).
+	
 	/**
 	 * Determine whether the robot is crossing a vertical line or a horizontal
 	 * line. If the robot is closer to the vertical axis(y) it is considered
@@ -219,19 +214,5 @@ public class OdometerCorrection extends Thread {
 			return true;
 		}
 		return false;
-	}
-	
-	/**
-	 * Helper method that hides the complexity of Thread.sleep() and simplifies the code.
-	 * 
-	 * @param time the sleep delay in milliseconds
-	 */
-	private void sleep(int time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

@@ -57,7 +57,7 @@ public class Driver {
 		for (Block block: blocks) {
 			Display.print(block.center.x, 4);
 			Display.print(block.center.y, 5);
-			Coordinate coord = removeOffset(block.center, Main.UPPER_US_OFFSET);
+			Coordinate coord = removeOffset(block.center, Main.US_OFFSET);
 			
 			travelTo(coord.x, coord.y);
 			try {

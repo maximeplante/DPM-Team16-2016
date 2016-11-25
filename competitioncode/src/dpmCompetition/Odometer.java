@@ -4,7 +4,6 @@ import lejos.utility.Timer;
 import lejos.utility.TimerListener;
 /**
  * 
- * @author vivek
  * Calculates the X, Y displacement and the angle the robot is facing from a set origin (heading). 
  * Class extends Thread; it will be constantly running in a separate thread
  *

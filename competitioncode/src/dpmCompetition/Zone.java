@@ -3,7 +3,7 @@ package dpmCompetition;
 /**
  * Zone object that is defined by lowerLeft coordinates and upperRight coordinates
  */
-public class Zone extends Stringer {
+public class Zone {
 	Coordinate lowerLeft;
 	Coordinate upperRight;
 	
