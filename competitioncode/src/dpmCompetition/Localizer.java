@@ -8,7 +8,7 @@ import lejos.hardware.Sound;
  *
  */
 public class Localizer {
-
+	
 	/** Reference to the odometer thread used by the robot */
 	private Odometer odo;
 	/** Reference to the navigation used by the robot */
@@ -16,9 +16,14 @@ public class Localizer {
 	/** Reference to the usPoller */
 	private UsPoller usPoller;
 
-//	private int noiseMargin = 10;
 	/** x,y and distance variable */
 	private double xCoord, yCoord, dist;
+	
+	/** When the localizer is scanning for the end of the wall, if the end of the wall
+	 * is found under that delay (ms), it means that this wall is not really a wall but
+	 * a block that has been detected as a wall.
+	 */
+	private static final int MINIMAL_VALID_WALL_DETECTION_DELAY = 5000;
 
 	/**
 	 * Constructor
@@ -38,24 +43,39 @@ public class Localizer {
 	 */
 	public void localize() {
 		double angleA, angleB;
-		// rotate the robot until it sees no wall
-
-		while (seesWall()) {
-			navigation.turnLeft();
-		}
-		// keep rotating until the robot sees a wall, then latch the angle
-		while (!seesWall()) {
-			navigation.turnRight();
+		
+		// Loop used to ignore blue blocks while localizing
+		while (true) {
+			// rotate the robot until it sees a wall
+			while (!seesWall()) {
+				navigation.turnLeft();
+			}
+			// Take the time before the robot starts finding the end of the wall
+			double start = System.currentTimeMillis();
+			// keep rotating until the robot sees no wall, then latch the angle
+			while (seesWall()) {
+				navigation.turnLeft();
+			}
+			/* If it took more than a certain delay before seeing the end of the wall,
+			 * it is not a just seeing a block and it is the actual wall.
+			 * Break the loop.
+			 * If it took less than a certain delay before seeing the end of the wall,
+			 * it is just a "small wall" so it's probably a block.
+			 * Ignore it and search again for a wall (by looping)
+			 */
+			if (System.currentTimeMillis() - start > MINIMAL_VALID_WALL_DETECTION_DELAY) {
+				break;
+			}
 		}
 		angleA = odo.getTheta();
 
-		// switch direction and wait until it sees no wall
-		while (seesWall()) {
-			navigation.turnLeft();
-		}
-		// keep rotating until the robot sees a wall, then latch the angle
+		// switch direction and wait until it sees a wall
 		while (!seesWall()) {
-			navigation.turnLeft();
+			navigation.turnRight();
+		}
+		// keep rotating until the robot sees no wall, then latch the angle
+		while ( seesWall()) {
+			navigation.turnRight();
 		}
 		angleB = odo.getTheta();
 
