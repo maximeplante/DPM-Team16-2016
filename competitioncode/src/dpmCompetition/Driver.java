@@ -20,7 +20,9 @@ public class Driver {
 	/** The time interval before continuing the next loop */
 	private final int TIMEOUT_PERIOD = 20;
     /** The offset for the robot to travel to the center of a square  */
-	private final double squareOffset = 15.0;
+	private final double squareOffset = 20.0;
+	
+	private LsPoller lsPoller;
 	
 	boolean first = true;
 
@@ -33,12 +35,13 @@ public class Driver {
 	 * @param competitionData a reference to the competition's data
 	 * @param areaScanner a reference to the scanner
 	 */
-	Driver(Odometer odometer, Navigation navigation, CompetitionData competitionData, AreaScanner areaScanner) {
+	Driver(Odometer odometer, Navigation navigation, CompetitionData competitionData, AreaScanner areaScanner, LsPoller lsPoller) {
 
 		this.odometer = odometer;
 		this.navigation = navigation;
 		this.competitionData = competitionData;
 		this.areaScanner = areaScanner;
+		this.lsPoller = lsPoller;
 
 	}
 
@@ -57,9 +60,16 @@ public class Driver {
 			Coordinate coord = removeOffset(block.center, Main.UPPER_US_OFFSET);
 			
 			travelTo(coord.x, coord.y);
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if (isBlueBlock()) {
 				return;
 			} else if (isObstacle()){
+				navigation.goForward(-10);
 				travelTo(initialX, initialY);
 			}
 		}
@@ -68,17 +78,13 @@ public class Driver {
 	
 	private boolean isBlueBlock() {
 		
-		return !first;
+		return lsPoller.isSeeingBlueBlock();
 		
 	}
 	
 	private boolean isObstacle() {
 		
-		if (first) {
-			first = false;
-			return true;
-		}
-		return false;
+		return lsPoller.isSeeingWoodenBlock();
 		
 	}
 	
@@ -86,8 +92,8 @@ public class Driver {
 		
 		double angle = Math.atan2(coord.y, coord.x);
 		Coordinate newCoord = new Coordinate();
-		newCoord.x = coord.x - (16.0 * Math.cos(angle));
-		newCoord.y = coord.y - (16.0 * Math.sin(angle));
+		newCoord.x = coord.x - (squareOffset * Math.cos(angle));
+		newCoord.y = coord.y - (squareOffset * Math.sin(angle));
 		
 		return newCoord;
 		
