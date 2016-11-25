@@ -86,7 +86,7 @@ public class Brain extends Thread {
 
 		blockManipulator.catchBlock();
 		driver.travelTo(startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH);
-		//driver.travelToGreenZone();
+		//driver.travelToHomeZone();
 	
 	}
 }

@@ -104,10 +104,15 @@ public class Driver {
 	 * The robot travels to the Green zone, which its coordinates are fetched from the 
 	 * competition's data
 	 */
-	public void travelToGreenZone() {
-		double x = (competitionData.greenZone.lowerLeft.x + competitionData.greenZone.upperRight.x)/2;
-		double y = (competitionData.greenZone.lowerLeft.y + competitionData.greenZone.upperRight.y)/2;
-
+	public void travelToHomeZone() {
+		double x,y;
+		if (Main.TEAM_NUMBER == competitionData.builderTeamNumber){
+			x = (competitionData.greenZone.lowerLeft.x + competitionData.greenZone.upperRight.x)/2;
+			y = (competitionData.greenZone.lowerLeft.y + competitionData.greenZone.upperRight.y)/2;
+		}else{
+			x = (competitionData.greenZone.lowerLeft.x + competitionData.redZone.upperRight.x)/2;
+			y = (competitionData.greenZone.lowerLeft.y + competitionData.redZone.upperRight.y)/2;
+		}
 		travelTo(x, y);
 	}
 
