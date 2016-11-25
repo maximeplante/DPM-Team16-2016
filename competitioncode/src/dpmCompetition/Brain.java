@@ -20,8 +20,6 @@ public class Brain extends Thread {
 	private BlockManipulator blockManipulator;
 	/** Reference to the data of this competition */
 	private CompetitionData competitionData;
-	
-	private LsPoller lsPoller;
 
 	/**
 	 * Constructor
@@ -33,14 +31,13 @@ public class Brain extends Thread {
 	 * @param blockManipulator a reference to the blockManipulator
 	 * @param competitionData the data for this competition
 	 */
-	Brain(Localizer localizer, Driver driver, Navigation navigation, Odometer odo, BlockManipulator blockManipulator, CompetitionData competitionData, LsPoller lsPoller) {
+	Brain(Localizer localizer, Driver driver, Navigation navigation, Odometer odo, BlockManipulator blockManipulator, CompetitionData competitionData) {
 		this.localizer = localizer;
 		this.driver = driver;
 		this.navigation = navigation;
 		this.odo = odo;
 		this.blockManipulator = blockManipulator;
 		this.competitionData = competitionData;
-		this.lsPoller = lsPoller;
 	}
 
 	public void run() {
@@ -48,36 +45,44 @@ public class Brain extends Thread {
 		int startYcoord;
 		int startAng;
 		Sound.setVolume(100);
-
-		localizer.localize();
-		driver.travelTo(0,0);
-		navigation.turnTo(0);
 		
-		//if (X1){
+		//localizer.localize();
+		//driver.travelTo(0,0);
+		//navigation.turnTo(0);
+		
+		// Choosing the starting corner depending on the robot's role
+		int startingCorner = competitionData.builderTeamNumber == Main.TEAM_NUMBER ? competitionData.builderStaringCorner : competitionData.collectorStartingCorner;
+		// Setting the X and Y coordinates, and angle position
+		switch(startingCorner) {
+		case 1:
 			startXcoord = 0;
 			startYcoord = 0;
 			startAng = 0;
-		/*}
-		else if (X2) {
-			startXcoord = 11;
+			break;
+		case 2:
+			startXcoord = 10;
 			startYcoord = 0;
 			startAng = 1;
-		}
-		else if (X3) {
-			startXcoord = 11;
-			startYcoord = 11;
+			break;
+		case 3:
+			startXcoord = 10;
+			startYcoord = 10;
 			startAng = 2;
-		}
-		else {
+			break;
+		case 4:
 			startXcoord = 0;
-			startYcoord = 11;
+			startYcoord = 10;
 			startAng = 3;
-		}*/
-		odo.setPosition(new double [] {startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH,startAng*90}, new boolean [] {true, true, true});
+			break;
+		default:
+			startXcoord = 0;
+			startYcoord = 0;
+			startAng = 0;
+			break;
+		}
+		odo.setPosition(new double [] {startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH, startAng*90}, new boolean [] {true, true, true});
 
-		//Coordinate[] objects = areaScanner.findCloseObjects();
 		driver.travelToBlueBlock();
-		//driver.travelTo(objects[0].x, objects[0].y);
 
 		blockManipulator.catchBlock();
 		//driver.travelToGreenZone();

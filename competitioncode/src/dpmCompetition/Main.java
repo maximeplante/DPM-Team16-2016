@@ -9,6 +9,8 @@ import lejos.hardware.Sound;
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.internal.ev3.EV3LCDManager;
+import lejos.internal.ev3.EV3LCDManager.LCDLayer;
 
 public class Main {
 	
@@ -40,21 +42,11 @@ public class Main {
 	static public final String DOOR_MOTOR_PORT = "C";
 	
 	/** The IP address of the competition server */
-	static public final String SERVER_IP = "192.168.2.3";
+	static public final String SERVER_IP = "192.168.2.7";
 	/** The team number of the robot (used by the wifi code) */
 	static public final int TEAM_NUMBER = 16;
 
 	public static void main(String[] args) {
-		
-		Sound.beep();
-		
-		CompetitionData competitionData = CompetitionDataFetcher.fetch();
-		
-		if (competitionData == null) {
-			System.out.println("The demo can't start without wifi data. It crashed.");
-			while (Button.waitForAnyPress() != Button.ID_ESCAPE);
-			System.exit(0);
-		}
 		
 		// Motos provider
 		MotorsController motorsController = new MotorsController();
@@ -70,11 +62,11 @@ public class Main {
 		EV3ColorSensor ls1 = new EV3ColorSensor(LocalEV3.get().getPort(Front_LS_PORT));
 		LsPoller frontLsPoller = new LsPoller(ls1.getRGBMode());
 
-		EV3ColorSensor ls2 = new EV3ColorSensor(LocalEV3.get().getPort(Right_LS_PORT));
-		LsPoller rightLsPoller = new LsPoller(ls2.getRedMode());
+		//EV3ColorSensor ls2 = new EV3ColorSensor(LocalEV3.get().getPort(Right_LS_PORT));
+		//LsPoller rightLsPoller = new LsPoller(ls2.getRedMode());
 		
-		EV3ColorSensor ls3 = new EV3ColorSensor(LocalEV3.get().getPort(Left_LS_PORT));
-		LsPoller leftLsPoller = new LsPoller(ls3.getRedMode());
+		//EV3ColorSensor ls3 = new EV3ColorSensor(LocalEV3.get().getPort(Left_LS_PORT));
+		//LsPoller leftLsPoller = new LsPoller(ls3.getRedMode());
 		
 		// Navigation
 		Navigation navigation = new Navigation(odometer, motorsController);
@@ -91,6 +83,21 @@ public class Main {
 		competitionData.greenZone.upperRight.x = 60;
 		competitionData.greenZone.upperRight.y = 90;*/
 		
+		Sound.beep();
+		
+		CompetitionData competitionData = CompetitionDataFetcher.fetch();
+		
+		if (competitionData == null) {
+			System.out.println("The demo can't start without wifi data. It crashed.");
+			while (Button.waitForAnyPress() != Button.ID_ESCAPE);
+			System.exit(0);
+		}
+		
+		// Hide the wifi messages from the screen
+		EV3LCDManager manager = EV3LCDManager.getLocalLCDManager();
+	    LCDLayer layer = manager.getLayer("STDOUT");
+	    layer.setVisible(false);
+		
 		Driver driver = new Driver(odometer, navigation, competitionData, areaScanner, frontLsPoller);
 		
 		// Localization
@@ -103,7 +110,7 @@ public class Main {
 		BlockManipulator blockManipulator = new BlockManipulator(motorsController, navigation);
 				
 		// Competition brain
-		Brain brain = new Brain(localizer, driver, navigation, odometer, blockManipulator, competitionData, frontLsPoller);
+		Brain brain = new Brain(localizer, driver, navigation, odometer, blockManipulator, competitionData);
 
 		// Starting the threads
 		//odometerCorrection.start();
