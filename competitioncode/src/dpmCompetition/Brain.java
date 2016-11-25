@@ -18,7 +18,6 @@ public class Brain extends Thread {
 	private Odometer odo;
 	/** Reference to the blockManipulator used by the robot */
 	private BlockManipulator blockManipulator;
-	private AreaScanner areaScanner;
 
 	/**
 	 * Constructor
@@ -29,13 +28,12 @@ public class Brain extends Thread {
 	 * @param odo a reference to the odometer
 	 * @param blockManipulator a reference to the blockManipulator
 	 */
-	Brain(Localizer localizer, Driver driver, Navigation navigation, Odometer odo, BlockManipulator blockManipulator, AreaScanner areaScanner) {
+	Brain(Localizer localizer, Driver driver, Navigation navigation, Odometer odo, BlockManipulator blockManipulator) {
 		this.localizer = localizer;
 		this.driver = driver;
 		this.navigation = navigation;
 		this.odo = odo;
 		this.blockManipulator = blockManipulator;
-		this.areaScanner = areaScanner;
 	}
 
 	public void run() {
