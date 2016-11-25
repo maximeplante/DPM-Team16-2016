@@ -22,7 +22,7 @@ public class Main {
 	/** The port used on the EV3 brick to connect the ultrasonic sensor */
 	static public final String US_SENSOR_PORT = "S1";
 	/** The horizontal offset in cm of the ultrasonic sensor from the wheels' chassi */
-	static public final double UPPER_US_OFFSET = 14.0;
+	static public final double US_OFFSET = 14.0;
 	
 	/** The length of a tile on the demo board (cm) */
 	static public final double TILE_LENGTH = 30.48;
@@ -61,10 +61,10 @@ public class Main {
 		
 		EV3ColorSensor ls1 = new EV3ColorSensor(LocalEV3.get().getPort(Front_LS_PORT));
 		LsPoller frontLsPoller = new LsPoller(ls1.getRGBMode());
-
+		
+		// FOR ODOMETRY CORRECTION ONLY
 		//EV3ColorSensor ls2 = new EV3ColorSensor(LocalEV3.get().getPort(Right_LS_PORT));
 		//LsPoller rightLsPoller = new LsPoller(ls2.getRedMode());
-		
 		//EV3ColorSensor ls3 = new EV3ColorSensor(LocalEV3.get().getPort(Left_LS_PORT));
 		//LsPoller leftLsPoller = new LsPoller(ls3.getRedMode());
 		
@@ -77,16 +77,18 @@ public class Main {
 		// Driver
 		// Used for Driver debugging
 		
+		// Debug code for the wifi data
 		/*CompetitionData competitionData = new CompetitionData();
 		competitionData.greenZone.lowerLeft.x = 0;
 		competitionData.greenZone.lowerLeft.y = 60;
 		competitionData.greenZone.upperRight.x = 60;
 		competitionData.greenZone.upperRight.y = 90;*/
 		
+		// Notify the user that the robot is ready to receive data
 		Sound.beep();
 		
+		// Get the wifi competition data
 		CompetitionData competitionData = CompetitionDataFetcher.fetch();
-		
 		if (competitionData == null) {
 			System.out.println("The demo can't start without wifi data. It crashed.");
 			while (Button.waitForAnyPress() != Button.ID_ESCAPE);
@@ -98,6 +100,7 @@ public class Main {
 	    LCDLayer layer = manager.getLayer("STDOUT");
 	    layer.setVisible(false);
 		
+	    // Driver
 		Driver driver = new Driver(odometer, navigation, competitionData, areaScanner, frontLsPoller);
 		
 		// Localization
