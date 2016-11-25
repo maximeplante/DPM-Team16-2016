@@ -3,6 +3,8 @@ package dpmCompetition;
 import java.util.ArrayList;
 import java.util.List;
 
+import lejos.hardware.Sound;
+
 // TODO: A lot of values in the code of this class could be turned into constants.
 
 public class AreaScanner {
@@ -18,8 +20,6 @@ public class AreaScanner {
 	private static final int CLOSE_OBJECT_DISTANCE = 70;
 	/** The speed of the robot's wheel motors when it is turning on itself for the scanning */
 	private static final int SCANNING_SPEED = 50;
-	/** The size of the threshold filter for determining where an object ends */
-	private static final int FILTER_SIZE = 3;
 	/** The threshold distance difference between two us reads to determine the boundaries of an object */
 	private static final int OBJECT_END_THRESHOLD_DISTANCE = 15;
 	/** The upper y position of the upper wall for wall ignoring */
@@ -31,7 +31,7 @@ public class AreaScanner {
 	/** The upper x position of the lower wall for wall ignoring */
 	private static final int WALL_LOWER_X = 0;
 	/** If an object is detected in less than MINIMAL_OBJECT_SIZE consecutive reads, it is considered nothing but bad readings */
-	private static final int MINIMAL_OBJECT_SIZE = 3;
+	private static final int MINIMAL_OBJECT_SIZE = 5;
 	/** The delay (ms) between the US samples during the scanning */
 	private static final int SCANNING_SAMPLE_DELAY = 100;
 	
@@ -69,12 +69,16 @@ public class AreaScanner {
 		while(navigation.isMoving()) {
 			
 			// Add the reading and include the offset of the us compared to the robot's rotation center
-			distances.add((int) (usPoller.getRawData() + Main.UPPER_US_OFFSET));
+			distances.add((int) (usPoller.getFilteredData() + Main.UPPER_US_OFFSET));
 			// Records the angle of each reading
 			angles.add((int) odometer.getTheta());
 			
 			sleep(SCANNING_SAMPLE_DELAY);
 			
+		}
+		
+		for (int i = 0; i < distances.size(); i++) {
+			System.out.println(Math.round(angles.get(i)) + ":" + distances.get(i));
 		}
 		
 		int startObjectIndex = 0;
@@ -92,7 +96,6 @@ public class AreaScanner {
 				break;
 			}
 			
-			// Get the end of the object found
 			endObjectIndex = findEndObjectIndex(startObjectIndex, distances);
 			
 			/* Ignore this object if it is too small
@@ -116,6 +119,9 @@ public class AreaScanner {
 			if (center.x < WALL_LOWER_X || center.x > WALL_UPPER_X || center.y < WALL_LOWER_Y || center.y > WALL_UPPER_Y) {
 				continue;
 			}
+			
+			Sound.beep();
+			sleep(500);
 			
 			// Create a block object with the object's information
 			Block block = new Block();
@@ -165,22 +171,14 @@ public class AreaScanner {
 		
 		int filterCounter = 0;
 		
-		// Searching through the distance samples
-		for (int i = objectOffset + FILTER_SIZE; i < distances.size(); i++) {
-			/*
-			 * How the filter works:
-			 * If a certain distance sample as a value difference of more than OBJECT_END_THRESHOLD_DISTANCE
-			 * with the next FILTER_SIZE consecutive readings, then the object is ended.
-			 * This prevent one or two bad readings from causing the code to think that the object is ended.
-			 */
-			for (int j = 0; j < FILTER_SIZE; j++) {
-				if (Math.abs(distances.get(i) - distances.get(i-j-1)) > OBJECT_END_THRESHOLD_DISTANCE) {
+		for (int i = objectOffset + 3; i < distances.size(); i++) {
+			for (int j = 0; j < 3; j++) {
+				if (Math.abs(distances.get(i) - distances.get(i-j-1)) > 15) {
 					filterCounter++;
 				}
 			}
-			// If it is really the end of the object, return the index at which the object ends.
-			if (filterCounter > FILTER_SIZE) {
-				return i;
+			if (filterCounter == 3) {
+				return i-3;
 			}
 			filterCounter = 0;
 		}

@@ -1,8 +1,5 @@
 package dpmCompetition;
 
-import java.io.IOException;
-import java.util.HashMap;
-
 import dpmCompetition.testing.AreaScannerTest;
 import dpmCompetition.testing.BlockCatchingTest;
 import dpmCompetition.testing.NavigationTest;
@@ -94,7 +91,7 @@ public class Main {
 		competitionData.greenZone.upperRight.x = 60;
 		competitionData.greenZone.upperRight.y = 90;*/
 		
-		Driver driver = new Driver(odometer, navigation, competitionData, areaScanner);
+		Driver driver = new Driver(odometer, navigation, competitionData, areaScanner, frontLsPoller);
 		
 		// Localization
 		Localizer localizer = new Localizer(odometer, usPoller, navigation);
@@ -106,7 +103,7 @@ public class Main {
 		BlockManipulator blockManipulator = new BlockManipulator(motorsController, navigation);
 				
 		// Competition brain
-		Brain brain = new Brain(localizer, driver, navigation, odometer, blockManipulator, areaScanner);
+		Brain brain = new Brain(localizer, driver, navigation, odometer, blockManipulator, competitionData, frontLsPoller);
 
 		// Starting the threads
 		//odometerCorrection.start();
@@ -115,8 +112,8 @@ public class Main {
 		odometer.start();
 		
 		frontLsPoller.start();
-		rightLsPoller.start();
-		leftLsPoller.start();
+		//rightLsPoller.start();
+		//leftLsPoller.start();
 		
 		// Navigation test
 		//NavigationTest navigationTest = new NavigationTest(driver, localizer);

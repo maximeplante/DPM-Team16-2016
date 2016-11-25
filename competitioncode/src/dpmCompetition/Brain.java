@@ -18,6 +18,10 @@ public class Brain extends Thread {
 	private Odometer odo;
 	/** Reference to the blockManipulator used by the robot */
 	private BlockManipulator blockManipulator;
+	/** Reference to the data of this competition */
+	private CompetitionData competitionData;
+	
+	private LsPoller lsPoller;
 
 	/**
 	 * Constructor
@@ -27,13 +31,16 @@ public class Brain extends Thread {
 	 * @param navigation a reference to the navigation
 	 * @param odo a reference to the odometer
 	 * @param blockManipulator a reference to the blockManipulator
+	 * @param competitionData the data for this competition
 	 */
-	Brain(Localizer localizer, Driver driver, Navigation navigation, Odometer odo, BlockManipulator blockManipulator) {
+	Brain(Localizer localizer, Driver driver, Navigation navigation, Odometer odo, BlockManipulator blockManipulator, CompetitionData competitionData, LsPoller lsPoller) {
 		this.localizer = localizer;
 		this.driver = driver;
 		this.navigation = navigation;
 		this.odo = odo;
 		this.blockManipulator = blockManipulator;
+		this.competitionData = competitionData;
+		this.lsPoller = lsPoller;
 	}
 
 	public void run() {
@@ -45,6 +52,7 @@ public class Brain extends Thread {
 		localizer.localize();
 		driver.travelTo(0,0);
 		navigation.turnTo(0);
+		
 		//if (X1){
 			startXcoord = 0;
 			startYcoord = 0;
@@ -72,7 +80,7 @@ public class Brain extends Thread {
 		//driver.travelTo(objects[0].x, objects[0].y);
 
 		blockManipulator.catchBlock();
-		driver.travelToGreenZone();
+		//driver.travelToGreenZone();
 	
 	}
 }
