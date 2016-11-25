@@ -36,12 +36,7 @@ public class DoubleUltrasonicSensorHeight extends Thread {
 			int lowerDistance = (int) lowerUsPoller.getFilteredData();
 			// Print the result to the screen (and an output file)
 			System.out.println(String.format("%d,%d,%d", System.currentTimeMillis(), upperDistance, lowerDistance));
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Helper.sleep(100);
 		}
 	}
 	

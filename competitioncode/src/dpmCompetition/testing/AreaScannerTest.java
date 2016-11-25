@@ -26,12 +26,7 @@ public class AreaScannerTest extends Thread {
 		
 		for (Block block: blocks) {
 			Sound.beep();
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Helper.sleep(500);
 		}
 		
 	}

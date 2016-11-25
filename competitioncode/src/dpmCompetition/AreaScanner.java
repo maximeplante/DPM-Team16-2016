@@ -5,8 +5,6 @@ import java.util.List;
 
 import lejos.hardware.Sound;
 
-// TODO: A lot of values in the code of this class could be turned into constants.
-
 public class AreaScanner {
 	
 	/** Reference to the navigation object */
@@ -75,7 +73,7 @@ public class AreaScanner {
 			// Records the angle of each reading
 			angles.add((int) odometer.getTheta());
 			
-			sleep(SCANNING_SAMPLE_DELAY);
+			Helper.sleep(SCANNING_SAMPLE_DELAY);
 			
 		}
 		
@@ -124,7 +122,7 @@ public class AreaScanner {
 			
 			// Used for debugging
 			Sound.beep();
-			sleep(500);
+			Helper.sleep(500);
 			
 			// Create a block object with the object's information
 			Block block = new Block();
@@ -207,20 +205,6 @@ public class AreaScanner {
 		coord.y = odometer.getY() + (distance * Math.sin(Math.toRadians(angle)));
 		return coord;
 		
-	}
-	
-	/**
-	 * Helper method that hides the complexity of Thread.sleep() and simplifies the code.
-	 * 
-	 * @param time the sleep delay in milliseconds
-	 */
-	private void sleep(int time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 }

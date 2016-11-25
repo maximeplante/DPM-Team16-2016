@@ -60,12 +60,7 @@ public class Driver {
 			Coordinate coord = removeOffset(block.center, Main.US_OFFSET);
 			
 			travelTo(coord.x, coord.y);
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Helper.sleep(200);
 			if (isBlueBlock()) {
 				return;
 			} else /*if (isObstacle())*/{
@@ -148,12 +143,7 @@ public class Driver {
 			// After turning, go forward in the new direction.
 			navigation.goForward();
 
-			try {
-				Thread.sleep(TIMEOUT_PERIOD);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Helper.sleep(TIMEOUT_PERIOD);
 		}
 
 	}

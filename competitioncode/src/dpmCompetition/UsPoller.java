@@ -70,12 +70,7 @@ public class UsPoller extends Thread {
 			medianDistance = median(usPreviousData);
 			
 			// Sleep for 70 ms because the ultrasonic sensor needs a sleep time of at 70 ms between the readings.
-			try {
-				Thread.sleep(70);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Helper.sleep(70);
 			
 		}
 	}

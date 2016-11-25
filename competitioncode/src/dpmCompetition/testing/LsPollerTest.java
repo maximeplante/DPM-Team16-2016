@@ -1,10 +1,6 @@
 package dpmCompetition.testing;
 
-import dpmCompetition.Display;
-import dpmCompetition.Driver;
-import dpmCompetition.LsPoller;
-import dpmCompetition.UsPoller;
-import lejos.hardware.Sound;
+import dpmCompetition.*;
 
 public class LsPollerTest extends Thread{
 	private final LsPoller rightLsPoller;
@@ -28,15 +24,7 @@ public class LsPollerTest extends Thread{
 				Display.print("left", 4);
 			}
 			
-			sleep(50);
-		}
-	}
-	private void sleep(int time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Helper.sleep(50);
 		}
 	}
 }

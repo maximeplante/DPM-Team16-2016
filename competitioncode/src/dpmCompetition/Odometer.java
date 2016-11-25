@@ -88,12 +88,7 @@ public class Odometer extends Thread {
 			Display.print(getY(), 1);
 			Display.print(getTheta(), 2);
 			
-			try {
-				Thread.sleep(TIMEOUT_PERIOD);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Helper.sleep(TIMEOUT_PERIOD);
 		}
 	}
 		/** 

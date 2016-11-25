@@ -3,8 +3,6 @@ package dpmCompetition;
 import lejos.hardware.Sound;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 
-// TODO don't do correction when the robot is not traveling in a straight line 
-//      need to consider the offset between the sensor and the wheels
 /**
  * Provide a separate thread to do odometry correction while the robot is
  * traveling
