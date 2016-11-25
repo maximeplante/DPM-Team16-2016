@@ -68,7 +68,7 @@ public class Driver {
 			}
 			if (isBlueBlock()) {
 				return;
-			} else if (isObstacle()){
+			} else /*if (isObstacle())*/{
 				navigation.goForward(-10);
 				travelTo(initialX, initialY);
 			}
@@ -77,8 +77,8 @@ public class Driver {
 	}
 	
 	private boolean isBlueBlock() {
-		
-		return lsPoller.isSeeingBlueBlock();
+		return true;
+		//return lsPoller.isSeeingBlueBlock();
 		
 	}
 	

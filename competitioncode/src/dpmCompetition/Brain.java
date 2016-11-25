@@ -46,9 +46,9 @@ public class Brain extends Thread {
 		int startAng;
 		Sound.setVolume(100);
 		
-		//localizer.localize();
-		//driver.travelTo(0,0);
-		//navigation.turnTo(0);
+		localizer.localize();
+		driver.travelTo(0,0);
+		navigation.turnTo(0);
 		
 		// Choosing the starting corner depending on the robot's role
 		int startingCorner = competitionData.builderTeamNumber == Main.TEAM_NUMBER ? competitionData.builderStaringCorner : competitionData.collectorStartingCorner;
@@ -85,6 +85,7 @@ public class Brain extends Thread {
 		driver.travelToBlueBlock();
 
 		blockManipulator.catchBlock();
+		driver.travelTo(startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH);
 		//driver.travelToGreenZone();
 	
 	}
