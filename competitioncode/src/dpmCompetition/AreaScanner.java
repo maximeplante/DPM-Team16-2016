@@ -34,6 +34,8 @@ public class AreaScanner {
 	private static final int MINIMAL_OBJECT_SIZE = 5;
 	/** The delay (ms) between the US samples during the scanning */
 	private static final int SCANNING_SAMPLE_DELAY = 100;
+	/** Size of the filter used to detect the end of an object */
+	private static final int FILTER_SIZE = 3;
 	
 	/**
 	 * Constructor
@@ -171,14 +173,15 @@ public class AreaScanner {
 		
 		int filterCounter = 0;
 		
-		for (int i = objectOffset + 3; i < distances.size(); i++) {
-			for (int j = 0; j < 3; j++) {
-				if (Math.abs(distances.get(i) - distances.get(i-j-1)) > 15) {
+		// Search the distance samples for the ending of the object
+		for (int i = objectOffset; i < distances.size() - FILTER_SIZE; i++) {
+			for (int j = 0; j < FILTER_SIZE; j++) {
+				if (Math.abs(distances.get(i) - distances.get(i+j)) > 15) {
 					filterCounter++;
 				}
 			}
-			if (filterCounter == 3) {
-				return i-3;
+			if (filterCounter == FILTER_SIZE) {
+				return i;
 			}
 			filterCounter = 0;
 		}
