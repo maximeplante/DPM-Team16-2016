@@ -39,7 +39,10 @@ public class LsPoller extends Thread {
 	private double woodRatio = 0.4;
 	
 	/** The double representing error margin for blue/red ratio*/
-	private double errMargin = 0.2;
+	private double errMargin = 0.3;
+	
+	private int filterCountB = 0;
+	private int filterCountW = 0;
 	
 	
 	/**
@@ -99,12 +102,24 @@ public class LsPoller extends Thread {
 			
 			// Check if the ratio is close to the ratio for a blue block or a wooden block
 			if (((blueRatio - errMargin) < BRratio) && ((blueRatio + errMargin) > BRratio)) {
-				seeBlueBlock = true;
+				filterCountW = 0;
+				filterCountB++;
+				if (filterCountB == 4) {
+					seeBlueBlock = true;
+					filterCountB = 0;
+				}
 			}
 			else if (((woodRatio - errMargin) < BRratio) && ((woodRatio + errMargin) > BRratio)) {
-				seeWoodBlock = true;
+				filterCountB = 0;
+				filterCountW++;
+				if (filterCountW == 4){
+					seeWoodBlock = true;
+					filterCountW = 0;
+				}
 			}
 			else {
+				filterCountB = 0;
+				filterCountW = 0;
 				seeBlueBlock = false;
 				seeWoodBlock = false;
 			}
