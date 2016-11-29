@@ -144,7 +144,6 @@ public class Navigation {
 		
 	}
 
-
 	/**
 	 * Makes the robot go forward.
 	 *
@@ -204,7 +203,7 @@ public class Navigation {
 		isGoingStraight = false;
 		
 		leftMotor.stop(true);
-		rightMotor.stop(true);
+		rightMotor.stop(false);
 	}
 	
 	/**

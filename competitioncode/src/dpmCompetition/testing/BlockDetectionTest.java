@@ -1,6 +1,5 @@
 package dpmCompetition.testing;
 
-import com.sun.istack.internal.localization.Localizer;
 
 import dpmCompetition.Display;
 import dpmCompetition.Driver;
@@ -18,13 +17,13 @@ public class BlockDetectionTest extends Thread{
 	}
 	
 	public void run(){
-		//driver.travelTo(90,0);
 		while(true){
+			driver.travelToBlueBlock();
+		
 			
-			if (frontLsPoller.isSeeingWoodenBlock()){
-				Sound.beep();
-			}
-			
+//			if (frontLsPoller.isSeeingWoodenBlock()){
+//				Sound.beep();
+//			}
 			sleep(50);
 		}
 	}
