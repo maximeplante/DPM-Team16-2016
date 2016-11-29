@@ -36,6 +36,7 @@ public class Driver {
     private final double xHighRed;
     private final double yLowRed;
     private final double yHighRed;
+    private int i = 0;
     
  
    
@@ -98,15 +99,16 @@ public class Driver {
     }
 
     public void goRandomly(){
-        int startCorner = competitionData.builderTeamNumber == Main.TEAM_NUMBER ? competitionData.builderStaringCorner : competitionData.collectorStartingCorner;
-    		navigation.turnTo((startCorner-1)*90 + 45);
+        i++;
+    	int startCorner = competitionData.builderTeamNumber == Main.TEAM_NUMBER ? competitionData.builderStaringCorner : competitionData.collectorStartingCorner;
+    		navigation.turnTo((startCorner-1)*90 + 40 + i*15);
         
         if (Main.TEAM_NUMBER == competitionData.builderTeamNumber){
-        	while (!(usPoller.getFilteredData()<15 || isRedZone())){	
+        	while (!(usPoller.getFilteredData()<20 || isRedZone())){	
         		navigation.goForward();
         	}
         	navigation.stopMoving();
-        	navigation.goForward(10);
+        	navigation.goForward(15);
         	if (lsPoller.isSeeingBlueBlock()){
         		return;
         	}
@@ -119,11 +121,11 @@ public class Driver {
         	}
         }
         else {
-        	while (!(usPoller.getFilteredData()<15 || isGreenZone())) {	
+        	while (!(usPoller.getFilteredData()<20 || isGreenZone())) {	
         		navigation.goForward();
         	}
         	navigation.stopMoving();
-        	navigation.goForward(10);
+        	navigation.goForward(15);
         	if (lsPoller.isSeeingBlueBlock()){
         		return;
         	} else if (lsPoller.isSeeingWoodenBlock() || isGreenZone()){
@@ -167,6 +169,7 @@ public class Driver {
     	}
     	else return false;
     }
+    
     
     private void builderAvoid(){
         navigation.goForward(-10);
