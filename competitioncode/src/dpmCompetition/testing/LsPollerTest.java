@@ -2,19 +2,28 @@ package dpmCompetition.testing;
 
 import dpmCompetition.*;
 
+/** 
+ * For testing lsPoller
+ *
+ */
 public class LsPollerTest extends Thread{
+	/** Reference to right lsPoller */
 	private final LsPoller rightLsPoller;
+	/** Reference to left lsPoller */
 	private final LsPoller leftLsPoller;
-	private Driver driver;
 	
-	public LsPollerTest(LsPoller rightLsPoller, LsPoller leftLsPoller,Driver driver){
+	/**
+	 * Constructor
+	 * 
+	 * @param rightLsPoller
+	 * @param leftLsPoller
+	 */
+	public LsPollerTest(LsPoller rightLsPoller, LsPoller leftLsPoller){
 		this.rightLsPoller = rightLsPoller;
 		this.leftLsPoller = leftLsPoller;
-		this.driver = driver;
 	}
 	
 	public void run(){
-		//driver.travelTo(90,0);
 		while(true){
 			if (rightLsPoller.isSeeingBlackLine()){
 				Display.print("right", 3);

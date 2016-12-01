@@ -119,8 +119,8 @@ public class Odometer extends Thread {
 		}
 
 		/**
-		 * @param position array which contains current X and Y displacements
-		 * @param update 
+		 * @param position array which contains current X and Y displacements and the angle
+		 * @param update array which contains booleans that represent whether to update that value
 		 */
 		public void setPosition(double[] position, boolean[] update) {
 			synchronized (this) {
@@ -153,7 +153,7 @@ public class Odometer extends Thread {
 		}
 		
 		/**
-		 * 
+		 * Fix the angle between 0 - 360 degree
 		 * @param angle
 		 * @return
 		 */
@@ -164,10 +164,10 @@ public class Odometer extends Thread {
 			return angle % 360.0;
 		}
 		/**
-		 * is this method ever used? doesn't seem like it... if it is not being used, how's it turning min angle?
-		 * @param a
-		 * @param b
-		 * @return
+		 * Calculate the minimum Angle between two angle
+		 * @param a angle A
+		 * @param b angle B
+		 * @return the minimum Angle
 		 */
 		public static double minimumAngleFromTo(double a, double b) {
 			double d = fixDegAngle(b - a);

@@ -21,7 +21,7 @@ public class Main {
 	
 	/** The port used on the EV3 brick to connect the ultrasonic sensor */
 	static public final String US_SENSOR_PORT = "S1";
-	/** The horizontal offset in cm of the ultrasonic sensor from the wheels' chassi */
+	/** The horizontal offset in cm of the ultrasonic sensor from the wheels' chassis */
 	static public final double US_OFFSET = 14.0;
 	
 	/** The length of a tile on the demo board (cm) */

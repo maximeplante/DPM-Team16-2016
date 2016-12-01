@@ -45,9 +45,11 @@ public class Brain extends Thread {
 		int startYcoord;
 		int startAng;
 		Sound.setVolume(100);
-		
+		//first localize
 		localizer.localize();
+		//travel to the upright point of the starting corner
 		driver.travelTo(0,0);
+		//turn to its zero degree
 		navigation.turnTo(0);
 		
 		// Choosing the starting corner depending on the robot's role
@@ -81,12 +83,13 @@ public class Brain extends Thread {
 			break;
 		}
 		odo.setPosition(new double [] {startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH, startAng*90}, new boolean [] {true, true, true});
-
+		// travel to blue block
 		driver.travelToBlueBlock();
-
+		// catch a blue block
 		blockManipulator.catchBlock();
+		// travel to home zone
+		driver.travelToHomeZone();
+		// travel to starting corner
 		driver.travelTo(startXcoord*Main.TILE_LENGTH, startYcoord*Main.TILE_LENGTH);
-		//driver.travelToHomeZone();
-	
 	}
 }

@@ -1,11 +1,19 @@
 package dpmCompetition.testing;
 
 import dpmCompetition.BlockManipulator;
-
+/**
+ * For testing catching a block
+ * 
+ *
+ */
 public class BlockCatchingTest extends Thread {
-	
+	/** Reference to BlockManipulator */
 	BlockManipulator blockManipulator;
 	
+	/** 
+	 * Constructor 
+	 * @param blockManipulator
+	 */
 	public BlockCatchingTest(BlockManipulator blockManipulator) {
 		this.blockManipulator = blockManipulator;
 	}

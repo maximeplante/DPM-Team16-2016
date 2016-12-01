@@ -1,26 +1,27 @@
 package dpmCompetition.testing;
 
-import com.sun.istack.internal.localization.Localizer;
-
-import dpmCompetition.Display;
-import dpmCompetition.Driver;
 import dpmCompetition.LsPoller;
-import dpmCompetition.UsPoller;
 import lejos.hardware.Sound;
 
+/**
+ * For testing block detection
+ *
+ */
 public class BlockDetectionTest extends Thread{
+	/** Reference to front lsPoller */
 	private final LsPoller frontLsPoller;
-	private Driver driver;
 	
-	public BlockDetectionTest(LsPoller frontLsPoller,Driver driver){
+	/**
+	 * Constructor
+	 * @param frontLsPoller
+	 */
+	public BlockDetectionTest(LsPoller frontLsPoller){
 		this.frontLsPoller = frontLsPoller;
-		this.driver = driver;
 	}
 	
 	public void run(){
-		//driver.travelTo(90,0);
 		while(true){
-			
+			// beep when sees a wooden block
 			if (frontLsPoller.isSeeingWoodenBlock()){
 				Sound.beep();
 			}
@@ -28,6 +29,11 @@ public class BlockDetectionTest extends Thread{
 			sleep(50);
 		}
 	}
+	
+	/**
+	 * sleep method
+	 * @param time
+	 */
 	private void sleep(int time) {
 		try {
 			Thread.sleep(time);

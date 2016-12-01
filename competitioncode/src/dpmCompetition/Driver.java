@@ -14,17 +14,15 @@ public class Driver {
 	private CompetitionData competitionData;
 	/** Reference to the Scanner */
 	private AreaScanner areaScanner;
-
+	/** Reference to the lsPoller */
+	private LsPoller lsPoller;
+	
 	/** The acceptable distance for the robot to determine if it is close enough to the target */
 	private static final double acceptableError = 2;
 	/** The time interval before continuing the next loop */
 	private final int TIMEOUT_PERIOD = 20;
     /** The offset for the robot to travel to the center of a square  */
 	private final double squareOffset = 20.0;
-	
-	private LsPoller lsPoller;
-	
-	boolean first = true;
 
 	
 	/**
@@ -46,7 +44,7 @@ public class Driver {
 	}
 
 	/**
-	 * The robot travels to the closest blue block.
+	 * The robot travels to every block that it finds
 	 */
 	public void travelToBlueBlock() {
 		Block[] blocks = areaScanner.findCloseObjects();
@@ -75,19 +73,32 @@ public class Driver {
 		}
 		
 	}
-	
+	/**
+	 * 
+	 * @return if the robot has seen a blue block
+	 */
 	private boolean isBlueBlock() {
-		return true;
-		//return lsPoller.isSeeingBlueBlock();
+		return lsPoller.isSeeingBlueBlock();
 		
 	}
 	
+	/**
+	 * 
+	 * @return if the robot has seen an obstacle
+	 */
 	private boolean isObstacle() {
 		
 		return lsPoller.isSeeingWoodenBlock();
 		
 	}
 	
+	/**
+	 * Remove the offset cause by the distance between the sensors and the wheels.
+	 * 
+	 * @param coord position of the object
+	 * @param offset the horizontal distance between the sensors and the wheels
+	 * @return the new position of the object after the offset has been removed
+	 */
 	private Coordinate removeOffset(Coordinate coord, double offset) {
 		
 		double angle = Math.atan2(coord.y, coord.x);
@@ -99,9 +110,8 @@ public class Driver {
 		
 	}
 
-	// only consider the case that the robot will only go to the green zone once
 	/**
-	 * The robot travels to the Green zone, which its coordinates are fetched from the 
+	 * The robot travels to the Home zone, which its coordinates are fetched from the 
 	 * competition's data
 	 */
 	public void travelToHomeZone() {
