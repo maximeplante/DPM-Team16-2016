@@ -91,7 +91,7 @@ public class Brain extends Thread {
 
         	blockManipulator.catchBlock();
         	driver.travelTo(startXcoord, startYcoord);
-        	navigation.goForward(15);
+        	navigation.goForward(20);
 //        	driver.travelToHomeZone();
         }
         else {
@@ -106,7 +106,7 @@ public class Brain extends Thread {
         	driver.travelToHomeZone();
         	blockManipulator.releaseTower();
         	driver.travelTo(startXcoord, startYcoord);
-        	navigation.goForward(15);
+        	navigation.goForward(20);
         }
     }
 }
