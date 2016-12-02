@@ -40,15 +40,15 @@ public abstract class CompetitionDataFetcher {
 		competitionData.builderStaringCorner = data.get("BSC");
 		competitionData.collectorStartingCorner = data.get("CSC");
 		
-		competitionData.greenZone.lowerLeft.x = data.get("LGZx") * 30;
-		competitionData.greenZone.lowerLeft.y = data.get("LGZy") * 30;
-		competitionData.greenZone.upperRight.x = data.get("UGZx") * 30;
-		competitionData.greenZone.upperRight.y = data.get("UGZy") * 30;
+		competitionData.greenZone.lowerLeft.x = data.get("LGZx") * Main.TILE_LENGTH;
+		competitionData.greenZone.lowerLeft.y = data.get("LGZy") * Main.TILE_LENGTH;
+		competitionData.greenZone.upperRight.x = data.get("UGZx") * Main.TILE_LENGTH;
+		competitionData.greenZone.upperRight.y = data.get("UGZy") * Main.TILE_LENGTH;
 		
-		competitionData.redZone.lowerLeft.x = data.get("LRZx") * 30;
-		competitionData.redZone.lowerLeft.y = data.get("LRZy") * 30;
-		competitionData.redZone.upperRight.x = data.get("URZx") * 30;
-		competitionData.redZone.upperRight.y = data.get("URZy") * 30;
+		competitionData.redZone.lowerLeft.x = data.get("LRZx") * Main.TILE_LENGTH;
+		competitionData.redZone.lowerLeft.y = data.get("LRZy") * Main.TILE_LENGTH;
+		competitionData.redZone.upperRight.x = data.get("URZx") * Main.TILE_LENGTH;
+		competitionData.redZone.upperRight.y = data.get("URZy") * Main.TILE_LENGTH;
 		
 		return competitionData;
 	}
